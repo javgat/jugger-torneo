@@ -1,0 +1,7 @@
+{
+  "name": "jugger-torneo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
