@@ -1,5 +1,7 @@
 {
 	"ranking": "Ranking",
 	"round": "Round",
-	"options": "Options"
+	"options": "Options",
+	"start_tournament": "Start tournament",
+	"new_tournament": "New tournament"
 }

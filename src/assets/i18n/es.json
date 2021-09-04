@@ -1,5 +1,7 @@
 {
 	"ranking": "Clasificación",
 	"round": "Ronda",
-	"options": "Opciones"
+	"options": "Opciones",
+	"start_tournament": "Iniciar torneo",
+	"new_tournament": "Nuevo torneo"
 }
