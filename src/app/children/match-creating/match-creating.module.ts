@@ -4,21 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NuevoTorneoPageRoutingModule } from './nuevo-torneo-routing.module';
-
-import { NuevoTorneoPage } from './nuevo-torneo.page';
+import { MatchCreatingComponent } from './match-creating.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
-import { MatchCreatingComponentModule } from '../children/match-creating/match-creating.module';
-import { MatchCreatedComponentModule } from '../children/match-created/match-created.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule({
-  imports: [
+  imports: [ 
     IonicModule,
     TranslateModule.forChild({
       loader: {
@@ -28,11 +24,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     CommonModule,
-    FormsModule,
-    MatchCreatingComponentModule,
-    MatchCreatedComponentModule,
-    NuevoTorneoPageRoutingModule
-  ],
-  declarations: [NuevoTorneoPage]
+    FormsModule],
+  declarations: [MatchCreatingComponent],
+  exports: [MatchCreatingComponent]
 })
-export class NuevoTorneoPageModule {}
+export class MatchCreatingComponentModule {}

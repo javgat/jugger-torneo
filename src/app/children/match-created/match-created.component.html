@@ -1,0 +1,14 @@
+<ion-item>
+  <ion-label>
+    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+  </ion-label>
+  <ion-select interface="action-sheet" (ionChange)="select_delete_pressed()">
+    <ion-select-option value="delete" translate>delete</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-label position="fixed">̣{{getFirstName()}}</ion-label>
+</ion-item>
+<ion-item>
+  <ion-label position="fixed">{{getSecondName()}}</ion-label>
+</ion-item>

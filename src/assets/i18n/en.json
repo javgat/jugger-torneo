@@ -3,5 +3,7 @@
 	"round": "Round",
 	"options": "Options",
 	"start_tournament": "Start tournament",
-	"new_tournament": "New tournament"
+	"new_tournament": "New tournament",
+	"team_name": "Team name",
+	"delete": "Delete"
 }
