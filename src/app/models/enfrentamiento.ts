@@ -36,6 +36,10 @@ export class Enfrentamiento{
 		this.calculaGanador();
 	}
 
+	unsetResultado(){
+		this.resultadosWritten = false;
+	}
+
 	setForcedGanadorA(){
 		this.setForcedGanador(GanadorPartido.GANAA);
 	}

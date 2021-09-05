@@ -5,5 +5,13 @@
 	"start_tournament": "Start tournament",
 	"new_tournament": "New tournament",
 	"team_name": "Team name",
-	"delete": "Delete"
+	"delete": "Delete",
+	"winner": "Winner",
+	"tie": "Tie",
+	"goals": "Goals",
+	"faults": "Faults",
+	"automatic": "Automatic",
+	"save": "Save",
+	"edit": "Edit",
+	"advance_round": "Advance"
 }

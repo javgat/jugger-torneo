@@ -5,5 +5,13 @@
 	"start_tournament": "Iniciar torneo",
 	"new_tournament": "Nuevo torneo",
 	"team_name": "Nombre del equipo",
-	"delete": "Eliminar"
+	"delete": "Eliminar",
+	"winner": "Ganador",
+	"tie": "Empate",
+	"goals": "Goles",
+	"faults": "Faltas",
+	"automatic": "Automatico",
+	"save": "Guardar",
+	"edit": "Editar",
+	"advance_round": "Avanzar"
 }
