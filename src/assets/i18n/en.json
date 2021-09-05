@@ -13,5 +13,6 @@
 	"automatic": "Automatic",
 	"save": "Save",
 	"edit": "Edit",
-	"advance_round": "Advance"
+	"advance_round": "Advance",
+	"reset": "Delete tournament"
 }

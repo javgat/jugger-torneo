@@ -43,4 +43,10 @@ export class DataService {
     }
     this.setEquipos(eqs);
   }
+
+  resetTorneo(){
+    this.setEquipos([]);
+    this.setEnfrentamientos([]);
+    this.setTorneoStarted(false);
+  }
 }

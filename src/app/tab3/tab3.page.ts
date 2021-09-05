@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
 @Component({
@@ -8,6 +9,10 @@ import { TranslatorService } from '../services/translator.service';
 })
 export class Tab3Page {
 
-  constructor(private translator: TranslatorService) {}
+  constructor(private translator: TranslatorService, private dataService: DataService) {}
+
+  select_delete_pressed(){
+    this.dataService.resetTorneo();
+  }
 
 }

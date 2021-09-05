@@ -13,5 +13,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-item>
+    <ion-label>
+      <span translate>reset</span>
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+    </ion-label>
+    <ion-select interface="action-sheet" (ionChange)="select_delete_pressed()">
+      <ion-select-option value="delete" translate>delete</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>
