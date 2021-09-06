@@ -13,5 +13,27 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col><strong translate>position_ranking</strong></ion-col>
+            <ion-col size="6">
+              <h2><strong translate>team</strong></h2>
+            </ion-col>
+            <ion-col></ion-col>
+            <ion-col><strong translate>points_ranking</strong></ion-col>
+            <ion-col><strong translate>wins_ranking</strong></ion-col>
+            <ion-col><strong translate>draws_ranking</strong></ion-col>
+            <ion-col><strong translate>loses_ranking</strong></ion-col>
+            <ion-col><strong translate>goals_for_ranking</strong></ion-col>
+            <ion-col><strong translate>goals_against_ranking</strong></ion-col>
+            <ion-col><strong translate>faults_ranking</strong></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+    <app-team-ranking *ngFor="let eq of equipos; let i = index" [position]="getPosition(i)" [equipo]="eq"></app-team-ranking>
+  </ion-list>
 </ion-content>

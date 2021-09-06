@@ -1,0 +1,20 @@
+<ion-item>
+  <ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col><strong>{{position}}</strong></ion-col>
+        <ion-col size="6">
+          <h2>{{equipo.getNombre()}}</h2>
+        </ion-col>
+        <ion-col><strong *ngIf="equipo.isDescalificado()" translate>disqualified_ranking</strong></ion-col>
+        <ion-col>{{equipo.getPuntuacion()}}</ion-col>
+        <ion-col>{{equipo.getVictorias()}}</ion-col>
+        <ion-col>{{equipo.getEmpates()}}</ion-col>
+        <ion-col>{{equipo.getDerrotas()}}</ion-col>
+        <ion-col>{{equipo.getGolesAFavor()}}</ion-col>
+        <ion-col>{{equipo.getGolesEnContra()}}</ion-col>
+        <ion-col>{{equipo.getFaltas()}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-label>
+</ion-item>

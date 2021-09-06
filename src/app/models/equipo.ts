@@ -12,6 +12,12 @@ export class Equipo{
 
 	constructor(nombre: string){
 		this.nombre = nombre;
+		this.golesAFavor = 0;
+		this.golesEnContra = 0;
+		this.victorias = 0;
+		this.empates = 0;
+		this.derrotas = 0;
+		this.faltas = 0;
 	}
 
 	getNombre(): string {
@@ -24,6 +30,10 @@ export class Equipo{
 
 	getGolesEnContra(): number {
 		return this.golesEnContra;
+	}
+
+	getGolAverage(): number{
+		return this.getGolesAFavor() - this.getGolesEnContra();
 	}
 
 	getVictorias(): number {
@@ -61,6 +71,29 @@ export class Equipo{
 		this.golesAFavor += golesAFavor;
 		this.golesEnContra += golesEnContra;
 		this.faltas += faltas;
+	}
+
+	/**
+	 * Compares to other Equipo. this - other.
+	 * Negative if this is smaller. Smaller means goes last.
+	 */
+	compareTo(other: Equipo): number{
+		if (this.isDescalificado() && other.isDescalificado()){
+			return 0;
+		}
+		if (this.isDescalificado()){
+			return -1;
+		}
+		if (other.isDescalificado()){
+			return 1;
+		}
+		let puntuacion = this.getPuntuacion();
+		let opunt = other.getPuntuacion();
+		if (puntuacion == opunt){
+			return this.getGolAverage() - other.getGolAverage();
+		}else{
+			return puntuacion - opunt;
+		}
 	}
 }
 
