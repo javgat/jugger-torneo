@@ -1,4 +1,5 @@
 import { FALTAS_DESCALIFICADO_TORNEO, VALOR_EMPATES, VALOR_VICTORIAS } from "./constants";
+import { Enfrentamiento } from "./enfrentamiento";
 
 export class Equipo{
 	private nombre: string;
@@ -9,8 +10,10 @@ export class Equipo{
 	private empates: number;
 	private derrotas: number;
 	private faltas: number;
+	private enfrentamientos: Enfrentamiento[];
 
 	constructor(nombre: string){
+		this.enfrentamientos = [];
 		this.nombre = nombre;
 		this.golesAFavor = 0;
 		this.golesEnContra = 0;
@@ -60,6 +63,10 @@ export class Equipo{
 		return this.faltas >= FALTAS_DESCALIFICADO_TORNEO;
 	}
 
+	saveEnfrentamiento(e: Enfrentamiento){
+		this.enfrentamientos.push(e);
+	}
+
 	addPartidoData(resultado: ResultadoPartido, golesAFavor: number, golesEnContra: number, faltas: number){
 		if (resultado == ResultadoPartido.VICTORIA) {
 			this.victorias++;
@@ -71,6 +78,16 @@ export class Equipo{
 		this.golesAFavor += golesAFavor;
 		this.golesEnContra += golesEnContra;
 		this.faltas += faltas;
+	}
+
+	getEnfrentamientosAgainst(e: Equipo): Enfrentamiento[]{
+		return this.enfrentamientos.filter((enf) => {
+			return enf.equipoA == e || enf.equipoB == e;
+		});
+	}
+
+	hasPlayedAgainst(e: Equipo): boolean{
+		return this.getEnfrentamientosAgainst(e).length > 0;
 	}
 
 	/**
@@ -90,7 +107,27 @@ export class Equipo{
 		let puntuacion = this.getPuntuacion();
 		let opunt = other.getPuntuacion();
 		if (puntuacion == opunt){
-			return this.getGolAverage() - other.getGolAverage();
+			let faltas = this.getFaltas();
+			let ofalts = other.getFaltas();
+			if (faltas == ofalts){
+				let golaver = this.getGolAverage();
+				let ogola = other.getGolAverage();
+				if (golaver == ogola){
+					let enfs = this.getEnfrentamientosAgainst(other);
+					if (enfs.length > 0){
+						if (enfs[0].isEmpate()) {
+							return 0;
+						} else if (enfs[0].isEquipoAWinner()){
+							return (enfs[0].equipoA == this) ? 1 : -1;
+						} else {
+							return (enfs[0].equipoA == this) ? -1 : 1;
+						}
+					}
+					return 0;
+				}
+				return this.getGolAverage() - other.getGolAverage();
+			}
+			return ofalts - faltas; // less faltas => first
 		}else{
 			return puntuacion - opunt;
 		}

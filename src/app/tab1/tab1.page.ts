@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Enfrentamiento } from '../models/enfrentamiento';
+import { Equipo } from '../models/equipo';
 import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
@@ -11,19 +12,34 @@ import { TranslatorService } from '../services/translator.service';
 })
 export class Tab1Page {
   
+  equiposSub: Subscription;
   enfrentamientosSub: Subscription;
   enfrentamientos: Enfrentamiento[];
+  equipos: Equipo[];
 
-  constructor(private translator: TranslatorService, private dataService: DataService) {}
+  constructor(private translator: TranslatorService, private dataService: DataService) {
+    this.equipos = [];
+    this.enfrentamientos = [];
+  }
 
   ngOnInit() {
     this.enfrentamientosSub = this.dataService.enfrentamientos.subscribe((valor)=>{
       this.enfrentamientos = valor;
     });
+    this.equiposSub = this.dataService.equipos.subscribe((valor)=>{
+      this.equipos = valor;
+    });
   }
 
   ngOnDestroy() {
     this.enfrentamientosSub.unsubscribe();
+    this.equiposSub.unsubscribe();
+  }
+
+  sortTeams(eqs: Equipo[]){
+    eqs.sort((ea, eb) =>{
+      return eb.compareTo(ea); // reverse order, so large goes first
+    });
   }
 
   advance_round_disabled(): boolean{
@@ -34,8 +50,34 @@ export class Tab1Page {
   }
 
   click_advanced_round(){
-    // TODO
     this.enfrentamientos.forEach(e => e.finPartido());
+    let clonEqs = [];
+    for (let eq of this.equipos){
+      clonEqs.push(eq);
+    }
+    this.sortTeams(clonEqs);
+    let newEnfs: Enfrentamiento[] = [];
+    while (clonEqs.length > 0){
+      let eqA: Equipo = clonEqs[0];
+      for (let j = 1; j < clonEqs.length; j++){
+        let eqB: Equipo = clonEqs[j];
+        if (!eqA.hasPlayedAgainst(eqB)){
+          clonEqs.splice(j, 1);
+          clonEqs.splice(0, 1);
+          newEnfs.push(new Enfrentamiento(eqA, eqB));
+          break;
+        }
+        if (j == clonEqs.length -1){
+          // if eqA has played against all, plays against the next one
+          eqB = clonEqs[1];
+          clonEqs.splice(1, 1);
+          clonEqs.splice(0, 1);
+          newEnfs.push(new Enfrentamiento(eqA, eqB));
+          break;
+        }
+      }
+    }
+    this.dataService.setEnfrentamientos(newEnfs);
   }
 
 }

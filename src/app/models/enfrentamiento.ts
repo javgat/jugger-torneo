@@ -83,6 +83,8 @@ export class Enfrentamiento{
 			}
 			this.equipoA.addPartidoData(resA, this.golesA, this.golesB, this.faltasA);
 			this.equipoB.addPartidoData(resB, this.golesB, this.golesA, this.faltasB);
+			this.equipoA.saveEnfrentamiento(this);
+			this.equipoB.saveEnfrentamiento(this);
 		} else {
 			throw new Error("Resultado of Entrenamiento is not set yet");
 		}
