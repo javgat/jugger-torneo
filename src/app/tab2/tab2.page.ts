@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Equipo } from '../models/equipo';
 import { DataService } from '../services/data.service';
@@ -12,22 +13,33 @@ import { TranslatorService } from '../services/translator.service';
 export class Tab2Page {
 
   equiposSub: Subscription;
+  subSub: Subscription;
 
   equipos: Equipo[];
 
-  constructor(private translator: TranslatorService, private dataService: DataService) {
+  constructor(private translator: TranslatorService, private dataService: DataService, private route: ActivatedRoute) {
     this.equipos = [];
+    this.subSub = route.params.subscribe(val => {
+      this.startSubscriptions();
+    });
   }
 
   ngOnInit() {
-    this.equiposSub = this.dataService.equipos.subscribe((valor)=>{
-      this.equipos = valor;
-      this.sortTeams();
-    });
+    this.startSubscriptions();
   }
 
   ngOnDestroy() {
     this.equiposSub.unsubscribe();
+    this.subSub.unsubscribe();
+  }
+
+  startSubscriptions() {
+    if (this.equiposSub)
+      this.equiposSub.unsubscribe();
+    this.equiposSub = this.dataService.equipos.subscribe((valor)=>{
+      this.equipos = valor;
+      this.sortTeams();
+    });
   }
 
   sortTeams(){

@@ -35,6 +35,7 @@ export class Tab1Page {
 
   click_advanced_round(){
     // TODO
+    this.enfrentamientos.forEach(e => e.finPartido());
   }
 
 }
