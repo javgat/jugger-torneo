@@ -7,6 +7,9 @@ import { TranslatorService } from 'src/app/services/translator.service';
   templateUrl: './team-ranking.component.html',
   styleUrls: ['./team-ranking.component.scss'],
 })
+/**
+ * Component that represents an ion-item with the information of a team (Equipo) that will fit in the teams ranking (tab2)
+ */
 export class TeamRankingComponent implements OnInit {
 
   @Input() position: number;

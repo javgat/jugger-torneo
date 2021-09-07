@@ -10,6 +10,10 @@ import { TranslatorService } from '../services/translator.service';
   templateUrl: './nuevo-torneo.page.html',
   styleUrls: ['./nuevo-torneo.page.scss'],
 })
+/**
+ * NuevoTorneoPage is the page that contains the functionality of creating the first
+ * matches (Enfrentamiento) and teams (Equipo) for a new tournament
+ */
 export class NuevoTorneoPage implements OnInit {
 
   torneoStarted: boolean;

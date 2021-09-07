@@ -7,6 +7,9 @@ import { TranslatorService } from 'src/app/services/translator.service';
   templateUrl: './match-happening.component.html',
   styleUrls: ['./match-happening.component.scss'],
 })
+/**
+ * Component that represents a Match that is happening (or just happened) and lets the user inputs the results of the match (and edit it). Relates to tab1
+ */
 export class MatchHappeningComponent implements OnInit {
 
   @Input() enfrentamiento: Enfrentamiento;

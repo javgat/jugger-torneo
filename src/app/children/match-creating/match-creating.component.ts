@@ -8,6 +8,10 @@ import { TranslatorService } from 'src/app/services/translator.service';
   templateUrl: './match-creating.component.html',
   styleUrls: ['./match-creating.component.scss'],
 })
+/**
+ * Component that allows the input of the data to create a new match (Enfrentamiento)
+ * and sends it to the parent. Created for nuevo-torneo page.
+ */
 export class MatchCreatingComponent implements OnInit {
 
   @Output() createdEvent = new EventEmitter<Enfrentamiento>();

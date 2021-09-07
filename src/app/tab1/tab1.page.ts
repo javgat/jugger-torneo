@@ -10,6 +10,9 @@ import { TranslatorService } from '../services/translator.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+/**
+ * Tab1Page is the page that contains the current round with the matches (Enfrentamiento)
+ */
 export class Tab1Page {
   
   equiposSub: Subscription;

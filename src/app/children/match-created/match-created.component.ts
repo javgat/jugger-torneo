@@ -7,6 +7,11 @@ import { TranslatorService } from 'src/app/services/translator.service';
   templateUrl: './match-created.component.html',
   styleUrls: ['./match-created.component.scss'],
 })
+/**
+ * Component that represents the data of a match (Enfrentamiento) that is being created
+ * at the same time as the tournament, and allows the user to delete it, sending the data
+ * to the parent component. Created for nuevo-torneo page.
+ */
 export class MatchCreatedComponent implements OnInit {
 
   @Input() enfrentamiento: Enfrentamiento;

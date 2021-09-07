@@ -1,6 +1,10 @@
 import { FALTAS_DESCALIFICADO_TORNEO, FALTAS_PERDER_PARTIDO } from "./constants";
 import { Equipo, ResultadoPartido } from "./equipo";
 
+/**
+ * @class 
+ * @classdesc Enfrentamiento represents a match between two teams (Equipo)
+ */
 export class Enfrentamiento{
 	equipoA: Equipo;
 	equipoB: Equipo;

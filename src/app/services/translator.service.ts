@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * TranslatorService implements the translating functionality, translating keys to the adequate string
+ */
 export class TranslatorService {
 
   public language: string;

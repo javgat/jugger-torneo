@@ -6,6 +6,10 @@ import { Equipo } from '../models/equipo';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * DataService implements functions and global observables that allow components and page to update
+ * information when needed, and to have the updated data.
+ */
 export class DataService {
 
   private torneo_started = new BehaviorSubject<Boolean>(new Boolean(false))

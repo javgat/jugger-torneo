@@ -10,6 +10,9 @@ import { TranslatorService } from '../services/translator.service';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
+/**
+ * Tab2Page is the page that contains the current ranking of the teams (Equipo)
+ */
 export class Tab2Page {
 
   equiposSub: Subscription;

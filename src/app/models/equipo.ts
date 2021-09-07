@@ -1,6 +1,10 @@
 import { FALTAS_DESCALIFICADO_TORNEO, VALOR_EMPATES, VALOR_VICTORIAS } from "./constants";
 import { Enfrentamiento } from "./enfrentamiento";
 
+/**
+ * @class
+ * @classdesc Equipo represents a team that is participating in the tournament
+ */
 export class Equipo{
 	private nombre: string;
 
