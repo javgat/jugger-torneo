@@ -24,5 +24,7 @@
 	"goals_for_ranking": "GF",
 	"goals_against_ranking": "GC",
 	"faults_ranking": "F",
-	"disqualified_ranking": "D"
+	"disqualified_ranking": "D",
+	"faltas_descalificado_desc": "Número de faltas para ser descalificado",
+	"faltas_perder_partido_desc": "Número de faltas para perder un partido"
 }

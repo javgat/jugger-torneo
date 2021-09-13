@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from '../models/constants';
 import { Enfrentamiento } from '../models/enfrentamiento';
+import { Equipo } from '../models/equipo';
 import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
@@ -21,9 +23,13 @@ export class NuevoTorneoPage implements OnInit {
   enfrentamientosSub: Subscription;
   subSub: Subscription;
   enfrentamientos: Enfrentamiento[];
+  faltas_descalificado_torneo: number;
+  faltas_perder_partido: number;
 
   constructor(private translator: TranslatorService, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.enfrentamientos = [];
+    this.faltas_descalificado_torneo = DEFAULT_FALTAS_DESCALIFICADO_TORNEO;
+    this.faltas_perder_partido = DEFAULT_FALTAS_PERDER_PARTIDO;
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -60,6 +66,14 @@ export class NuevoTorneoPage implements OnInit {
   }
 
   click_start_tournament(){
+    for (let enf of this.enfrentamientos){
+      enf.equipoA.setFaltasDescalificado(this.faltas_descalificado_torneo);
+      enf.equipoB.setFaltasDescalificado(this.faltas_descalificado_torneo);
+      enf.setFaltasDescalificadoTorneo(this.faltas_descalificado_torneo);
+      enf.setFaltasPerderPartido(this.faltas_perder_partido);
+    }
+    this.dataService.setFaltasDescalificado(this.faltas_descalificado_torneo);
+    this.dataService.setFaltasPerderPartido(this.faltas_perder_partido);
     this.dataService.startTorneo(this.enfrentamientos);
   }
 

@@ -1,4 +1,3 @@
-import { FALTAS_DESCALIFICADO_TORNEO, FALTAS_PERDER_PARTIDO } from "./constants";
 import { Equipo, ResultadoPartido } from "./equipo";
 
 /**
@@ -16,10 +15,13 @@ export class Enfrentamiento{
 	faltasB: number;
 
 	resultadoGanador: GanadorPartido;
+	
+	private faltas_descalificado_torneo: number;
+	private faltas_perder_partido: number;
 
 	private resultadosWritten: boolean
 
-	constructor(equipoA: Equipo, equipoB: Equipo){
+	constructor(equipoA: Equipo, equipoB: Equipo, faltas_descalificado_torneo: number, faltas_perder_partido: number){
 		this.equipoA = equipoA;
 		this.equipoB = equipoB;
 		
@@ -29,6 +31,9 @@ export class Enfrentamiento{
 		this.faltasB = 0;
 		this.resultadoGanador = GanadorPartido.EMPATE;
 		this.resultadosWritten = false;
+
+		this.faltas_descalificado_torneo = faltas_descalificado_torneo;
+		this.faltas_perder_partido = faltas_perder_partido;
 	}
 
 	setResultados(golesA: number, faltasA: number, golesB:number, faltasB: number){
@@ -94,6 +99,14 @@ export class Enfrentamiento{
 		}
 	}
 
+	setFaltasDescalificadoTorneo(n: number){
+		this.faltas_descalificado_torneo = n;
+	}
+
+	setFaltasPerderPartido(n: number){
+		this.faltas_perder_partido = n;
+	}
+
 	private calculaGanador(){
 
 		if (this.golesA > this.golesB){
@@ -107,8 +120,8 @@ export class Enfrentamiento{
 		let totFaltasA = this.equipoA.getFaltas() + this.faltasA;
 		let totFaltasB = this.equipoB.getFaltas() + this.faltasB;
 
-		let isADescalificado = (totFaltasA >= FALTAS_DESCALIFICADO_TORNEO) || (this.faltasA >= FALTAS_PERDER_PARTIDO);
-		let isBDescalificado = (totFaltasB >= FALTAS_DESCALIFICADO_TORNEO) || (this.faltasB >= FALTAS_PERDER_PARTIDO);
+		let isADescalificado = (totFaltasA >= this.faltas_descalificado_torneo) || (this.faltasA >= this.faltas_perder_partido);
+		let isBDescalificado = (totFaltasB >= this.faltas_descalificado_torneo) || (this.faltasB >= this.faltas_perder_partido);
 		if (isADescalificado && isBDescalificado){
 			this.resultadoGanador = GanadorPartido.EMPATE;
 		} else if (isADescalificado){

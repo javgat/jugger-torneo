@@ -1,4 +1,4 @@
-import { FALTAS_DESCALIFICADO_TORNEO, VALOR_EMPATES, VALOR_VICTORIAS } from "./constants";
+import { VALOR_EMPATES, VALOR_VICTORIAS } from "./constants";
 import { Enfrentamiento } from "./enfrentamiento";
 
 /**
@@ -15,8 +15,9 @@ export class Equipo{
 	private derrotas: number;
 	private faltas: number;
 	private enfrentamientos: Enfrentamiento[];
+	private faltas_descalificado: number;
 
-	constructor(nombre: string){
+	constructor(nombre: string, faltas_descalificado: number){
 		this.enfrentamientos = [];
 		this.nombre = nombre;
 		this.golesAFavor = 0;
@@ -25,6 +26,7 @@ export class Equipo{
 		this.empates = 0;
 		this.derrotas = 0;
 		this.faltas = 0;
+		this.faltas_descalificado = faltas_descalificado;
 	}
 
 	getNombre(): string {
@@ -64,7 +66,11 @@ export class Equipo{
 	}
 
 	isDescalificado(): boolean{
-		return this.faltas >= FALTAS_DESCALIFICADO_TORNEO;
+		return this.faltas >= this.faltas_descalificado;
+	}
+
+	setFaltasDescalificado(n: number){
+		this.faltas_descalificado = n;
 	}
 
 	saveEnfrentamiento(e: Enfrentamiento){

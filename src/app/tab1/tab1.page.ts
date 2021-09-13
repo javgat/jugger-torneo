@@ -17,8 +17,12 @@ export class Tab1Page {
   
   equiposSub: Subscription;
   enfrentamientosSub: Subscription;
+  faltasDescalificadoSub: Subscription;
+  faltasPerderPartSub: Subscription;
   enfrentamientos: Enfrentamiento[];
   equipos: Equipo[];
+  faltas_descalificado: number;
+  faltas_perder_partido: number;
 
   constructor(private translator: TranslatorService, private dataService: DataService) {
     this.equipos = [];
@@ -32,11 +36,19 @@ export class Tab1Page {
     this.equiposSub = this.dataService.equipos.subscribe((valor)=>{
       this.equipos = valor;
     });
+    this.faltasDescalificadoSub = this.dataService.faltas_descalificado.subscribe((valor)=>{
+      this.faltas_descalificado = valor;
+    });
+    this.faltasPerderPartSub = this.dataService.faltas_perder_partido.subscribe((valor)=>{
+      this.faltas_perder_partido = valor;
+    });
   }
 
   ngOnDestroy() {
     this.enfrentamientosSub.unsubscribe();
     this.equiposSub.unsubscribe();
+    this.faltasDescalificadoSub.unsubscribe();
+    this.faltasPerderPartSub.unsubscribe();
   }
 
   sortTeams(eqs: Equipo[]){
@@ -67,7 +79,7 @@ export class Tab1Page {
         if (!eqA.hasPlayedAgainst(eqB)){
           clonEqs.splice(j, 1);
           clonEqs.splice(0, 1);
-          newEnfs.push(new Enfrentamiento(eqA, eqB));
+          newEnfs.push(new Enfrentamiento(eqA, eqB, this.faltas_descalificado, this.faltas_perder_partido));
           break;
         }
         if (j == clonEqs.length -1){
@@ -75,7 +87,7 @@ export class Tab1Page {
           eqB = clonEqs[1];
           clonEqs.splice(1, 1);
           clonEqs.splice(0, 1);
-          newEnfs.push(new Enfrentamiento(eqA, eqB));
+          newEnfs.push(new Enfrentamiento(eqA, eqB, this.faltas_descalificado, this.faltas_perder_partido));
           break;
         }
       }

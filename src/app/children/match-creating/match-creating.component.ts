@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from 'src/app/models/constants';
 import { Enfrentamiento } from 'src/app/models/enfrentamiento';
 import { Equipo } from 'src/app/models/equipo';
 import { TranslatorService } from 'src/app/services/translator.service';
@@ -35,9 +36,9 @@ export class MatchCreatingComponent implements OnInit {
   ngOnInit() {}
 
   click_save_match(){
-    this.equipoA = new Equipo(this.firstTeamName);
-    this.equipoB = new Equipo(this.secondTeamName);
-    this.enfrentamiento = new Enfrentamiento(this.equipoA, this.equipoB);
+    this.equipoA = new Equipo(this.firstTeamName, DEFAULT_FALTAS_DESCALIFICADO_TORNEO);
+    this.equipoB = new Equipo(this.secondTeamName, DEFAULT_FALTAS_DESCALIFICADO_TORNEO);
+    this.enfrentamiento = new Enfrentamiento(this.equipoA, this.equipoB, DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO);
     this.callParentCreatedEvent();
     this.firstTeamName = "";
     this.secondTeamName =  "";
