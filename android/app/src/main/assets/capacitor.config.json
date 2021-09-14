@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "jugger-torneo",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
