@@ -37,11 +37,13 @@ export class DataService {
       this.storageServ.getObject(this.stFaltasPerderPartido).then((v)=>{
         this.setFaltasPerderPartido(v as number);
         this.storageServ.getObject(this.stEquipos).then((v)=>{
-          let eqs: Equipo[] = Equipo.createFromJSONS(v as EquipoJSON[]);
-          this.setEquipos(eqs);
-          this.storageServ.getObject(this.stEnfrentamientos).then((v)=>{
-            this.setEnfrentamientosFromJSON(v as EnfrentamientoJSON[], eqs);
-          });
+          if (Array.isArray(v)){
+            let eqs: Equipo[] = Equipo.createFromJSONS(v as EquipoJSON[]);
+            this.setEquipos(eqs);
+            this.storageServ.getObject(this.stEnfrentamientos).then((v)=>{
+              this.setEnfrentamientosFromJSON(v as EnfrentamientoJSON[], eqs);
+            });
+          }
         });
       });
     });
@@ -51,8 +53,8 @@ export class DataService {
    * TORNEO STARTED 
    * torneo started indicates if the tournament has started or false if it is still being created.
    */
-  private torneo_started = new BehaviorSubject<Boolean>(new Boolean(false))
-  torneoStarted = this.torneo_started.asObservable()
+  private torneo_started = new BehaviorSubject<boolean>(false);
+  torneoStarted = this.torneo_started.asObservable();
 
   setTorneoStarted(started: boolean){
     this.torneo_started.next(started);
@@ -87,7 +89,6 @@ export class DataService {
 
   setEquipos(eqs: Equipo[]){
     this._equipos.next(eqs);
-    console.log("equipos updated");
     let eqsjson: EquipoJSON[] = [];
     for (let eq of eqs){
       eqsjson.push(eq.toJSON());

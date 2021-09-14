@@ -36,7 +36,7 @@ export class TabsPage {
     if(this.torneoStartedSub)
       this.torneoStartedSub.unsubscribe();
     this.torneoStartedSub = this.dataService.torneoStarted.subscribe((valor)=>{
-      this.torneoStarted = valor.valueOf();
+      this.torneoStarted = valor;
       this.checkIfChange();
     });
   }

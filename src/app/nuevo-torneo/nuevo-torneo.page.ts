@@ -51,7 +51,7 @@ export class NuevoTorneoPage implements OnInit {
     if (this.enfrentamientosSub)
       this.enfrentamientosSub.unsubscribe();
     this.torneoStartedSub = this.dataService.torneoStarted.subscribe((valor)=>{
-      this.torneoStarted = valor.valueOf();
+      this.torneoStarted = valor;
       this.checkIfChange();
     });
     this.enfrentamientosSub = this.dataService.enfrentamientos.subscribe((valor)=>{
