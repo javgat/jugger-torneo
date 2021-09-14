@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from '../models/constants';
-import { Enfrentamiento } from '../models/enfrentamiento';
-import { Equipo } from '../models/equipo';
+import { Enfrentamiento, EnfrentamientoJSON } from '../models/enfrentamiento';
+import { Equipo, EquipoJSON } from '../models/equipo';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,38 @@ import { Equipo } from '../models/equipo';
  */
 export class DataService {
 
-  constructor() { }
+  private stTorneoStarted = 'torneo_started';
+  private stEnfrentamientos = 'enfrentamientos';
+  private stEquipos = 'equipos';
+  private stFaltasDescalificado = 'faltas_descalificado';
+  private stFaltasPerderPartido = 'faltas_perder_partido';
+
+  constructor(private storageServ: StorageService) {
+    storageServ.isInit.subscribe((started)=>{
+      if (started){
+        this.loadDataStorage();
+      }
+    });
+  }
+
+  private loadDataStorage(){
+    this.storageServ.getObject(this.stTorneoStarted).then((v)=>{
+      this.setTorneoStarted(v as boolean);
+    });
+    this.storageServ.getObject(this.stFaltasDescalificado).then((v)=>{
+      this.setFaltasDescalificado(v as number);
+      this.storageServ.getObject(this.stFaltasPerderPartido).then((v)=>{
+        this.setFaltasPerderPartido(v as number);
+        this.storageServ.getObject(this.stEquipos).then((v)=>{
+          let eqs: Equipo[] = Equipo.createFromJSONS(v as EquipoJSON[]);
+          this.setEquipos(eqs);
+          this.storageServ.getObject(this.stEnfrentamientos).then((v)=>{
+            this.setEnfrentamientosFromJSON(v as EnfrentamientoJSON[], eqs);
+          });
+        });
+      });
+    });
+  }
 
   /**
    * TORNEO STARTED 
@@ -24,6 +56,7 @@ export class DataService {
 
   setTorneoStarted(started: boolean){
     this.torneo_started.next(started);
+    this.storageServ.setObject(this.stTorneoStarted, started);
   }
 
   startTorneo(enfs: Enfrentamiento[]){
@@ -41,6 +74,7 @@ export class DataService {
     this.setEquipos([]);
     this.setEnfrentamientos([]);
     this.setTorneoStarted(false);
+    this.storageServ.clear();
   }
 
   /**
@@ -53,6 +87,12 @@ export class DataService {
 
   setEquipos(eqs: Equipo[]){
     this._equipos.next(eqs);
+    console.log("equipos updated");
+    let eqsjson: EquipoJSON[] = [];
+    for (let eq of eqs){
+      eqsjson.push(eq.toJSON());
+    }
+    this.storageServ.setObject(this.stEquipos, eqsjson);
   }
 
   /**
@@ -64,6 +104,23 @@ export class DataService {
 
   setEnfrentamientos(enfs: Enfrentamiento[]){
     this._enfrentamientos.next(enfs);
+    this.updateStorageEnfrentamientos(enfs);
+  }
+
+  updateStorageEnfrentamientos(enfs: Enfrentamiento[]){
+    let enfsjson: EnfrentamientoJSON[] = [];
+    for (let enf of enfs){
+      enfsjson.push(enf.toJSON());
+    }
+    this.storageServ.setObject(this.stEnfrentamientos, enfsjson);
+  }
+
+  private setEnfrentamientosFromJSON(enfsJs: EnfrentamientoJSON[], eqs: Equipo[]){
+    let enfs: Enfrentamiento[] = [];
+    for (let enfJs of enfsJs){
+      enfs.push(Enfrentamiento.createFromJSON(enfJs, eqs));
+    }
+    this.setEnfrentamientos(enfs);
   }
 
   /**
@@ -75,6 +132,7 @@ export class DataService {
 
   setFaltasDescalificado(n: number){
     this._faltas_descalificado.next(n);
+    this.storageServ.setObject(this.stFaltasDescalificado, n);
   }
 
   /**
@@ -86,5 +144,6 @@ export class DataService {
 
   setFaltasPerderPartido(n: number){
     this._faltas_perder_partido.next(n);
+    this.storageServ.setObject(this.stFaltasPerderPartido, n);
   }
 }

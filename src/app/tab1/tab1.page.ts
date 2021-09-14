@@ -92,7 +92,12 @@ export class Tab1Page {
         }
       }
     }
+    this.dataService.setEquipos(this.equipos); // We want to save the Equipos in storage
     this.dataService.setEnfrentamientos(newEnfs);
+  }
+
+  updateStorageEnfrentamientosData(){
+    this.dataService.updateStorageEnfrentamientos(this.enfrentamientos);
   }
 
 }

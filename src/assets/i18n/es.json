@@ -26,5 +26,6 @@
 	"faults_ranking": "F",
 	"disqualified_ranking": "D",
 	"faltas_descalificado_desc": "Número de faltas para ser descalificado",
-	"faltas_perder_partido_desc": "Número de faltas para perder un partido"
+	"faltas_perder_partido_desc": "Número de faltas para perder un partido",
+	"repeated_names_err_msg": "Los nombres de los equipos no pueden repetirse"
 }

@@ -30,6 +30,7 @@
     "@ionic-native/globalization": "^5.36.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/pwa-elements": "^3.0.2",
+    "@ionic/storage-angular": "^3.0.6",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "cordova-plugin-globalization": "^1.11.0",

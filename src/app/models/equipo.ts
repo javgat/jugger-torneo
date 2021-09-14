@@ -1,11 +1,26 @@
 import { VALOR_EMPATES, VALOR_VICTORIAS } from "./constants";
-import { Enfrentamiento } from "./enfrentamiento";
+import { Enfrentamiento, EnfrentamientoJSON } from "./enfrentamiento";
+
+export interface EquipoJSON{
+	// unique id
+	nombre: string;
+
+	golesAFavor: number;
+	golesEnContra: number;
+	victorias: number;
+	empates: number;
+	derrotas: number;
+	faltas: number;
+	enfrentamientos: EnfrentamientoJSON[];
+	faltas_descalificado: number;
+}
 
 /**
  * @class
  * @classdesc Equipo represents a team that is participating in the tournament
  */
 export class Equipo{
+	// unique id
 	private nombre: string;
 
 	private golesAFavor: number;
@@ -27,6 +42,57 @@ export class Equipo{
 		this.derrotas = 0;
 		this.faltas = 0;
 		this.faltas_descalificado = faltas_descalificado;
+	}
+
+	toJSON(): EquipoJSON{
+		let enfsJson: EnfrentamientoJSON[] = [];
+		for (let enf of this.enfrentamientos){
+			enfsJson.push(enf.toJSON());
+		}
+		let eq : EquipoJSON = {
+			nombre: this.nombre,
+
+			golesAFavor: this.golesAFavor,
+			golesEnContra: this.golesEnContra,
+			victorias: this.victorias,
+			empates: this.empates,
+			derrotas: this.derrotas,
+			faltas: this.faltas,
+			enfrentamientos: enfsJson,
+			faltas_descalificado: this.faltas_descalificado,
+		}
+		return eq;
+	}
+
+	private static beginCreationFromJSON(eqJs: EquipoJSON): Equipo{
+		let eq = new Equipo(eqJs.nombre, eqJs.faltas_descalificado);
+		eq.golesAFavor = eqJs.golesAFavor;
+		eq.golesEnContra = eqJs.golesEnContra;
+		eq.victorias = eqJs.victorias;
+		eq.empates = eqJs.empates;
+		eq.derrotas = eqJs.derrotas;
+		eq.faltas = eqJs.faltas;
+		return eq;
+	}
+
+	private static finishCreationFromJSON(eqJs: EquipoJSON, eq: Equipo, eqs: Equipo[]){
+		for (let enfJs of eqJs.enfrentamientos){
+			// These enfrentamientos will be duplicated in the other equipo, but 
+			// they are not the current enfrentamientos so it is not a problem
+			eq.enfrentamientos.push(Enfrentamiento.createFromJSON(enfJs, eqs));
+		}
+		return eq;
+	}
+
+	static createFromJSONS(eqsJs: EquipoJSON[]): Equipo[]{
+		let eqs: Equipo[] = [];
+		for (let eqJs of eqsJs){
+			eqs.push(this.beginCreationFromJSON(eqJs));
+		}
+		for (let i = 0; i < eqs.length; i++){
+			this.finishCreationFromJSON(eqsJs[i], eqs[i], eqs);
+		}
+		return eqs;
 	}
 
 	getNombre(): string {

@@ -77,8 +77,27 @@ export class NuevoTorneoPage implements OnInit {
     this.dataService.startTorneo(this.enfrentamientos);
   }
 
+  private isRepeatedNameEquipo(): boolean{
+    for (let i = 0; i < this.enfrentamientos.length; i++){
+      let nomEqA = this.enfrentamientos[i].equipoA.getNombre();
+      let nomEqB = this.enfrentamientos[i].equipoB.getNombre();
+      if (nomEqA == nomEqB){
+        return true;
+      }
+      for (let j = i+1; j < this.enfrentamientos.length; j++){
+        let eqA = this.enfrentamientos[j].equipoA;
+        let eqB = this.enfrentamientos[j].equipoB;
+        if (nomEqA == eqA.getNombre() || nomEqA == eqB.getNombre() ||
+          nomEqB == eqA.getNombre() || nomEqB == eqB.getNombre()){
+            return true;
+          }
+      }
+    }
+    return false;
+  }
+
   start_tournament_disabled(): boolean{
-    return this.enfrentamientos.length==0;
+    return this.enfrentamientos.length==0 || this.isRepeatedNameEquipo();
   }
 
   new_match(enf: Enfrentamiento){

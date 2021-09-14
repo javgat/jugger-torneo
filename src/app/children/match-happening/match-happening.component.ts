@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Enfrentamiento } from 'src/app/models/enfrentamiento';
 import { TranslatorService } from 'src/app/services/translator.service';
 
@@ -13,6 +13,12 @@ import { TranslatorService } from 'src/app/services/translator.service';
 export class MatchHappeningComponent implements OnInit {
 
   @Input() enfrentamiento: Enfrentamiento;
+
+  @Output() clickedSaveDataEvent = new EventEmitter<any>();
+
+  callParentClickedSaveDataEvent() {
+    this.clickedSaveDataEvent.emit();
+  }
 
   inputGolesA: number;
   inputGolesB: number;
@@ -107,6 +113,7 @@ export class MatchHappeningComponent implements OnInit {
     } else if (this.winner_select_val == SelectWinner.EMPATE) {
       this.enfrentamiento.setForcedEmpate();
     }
+    this.callParentClickedSaveDataEvent();
   }
 
   click_edit_again(){

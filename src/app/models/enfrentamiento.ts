@@ -1,5 +1,23 @@
 import { Equipo, ResultadoPartido } from "./equipo";
 
+export interface EnfrentamientoJSON{
+	nombreEquipoA: string;
+	nombreEquipoB: string;
+
+	golesA: number;
+	faltasA: number;
+
+	golesB: number;
+	faltasB: number;
+
+	resultadoGanador: GanadorPartido;
+	
+	faltas_descalificado_torneo: number;
+	faltas_perder_partido: number;
+
+	resultadosWritten: boolean;
+}
+
 /**
  * @class 
  * @classdesc Enfrentamiento represents a match between two teams (Equipo)
@@ -19,7 +37,7 @@ export class Enfrentamiento{
 	private faltas_descalificado_torneo: number;
 	private faltas_perder_partido: number;
 
-	private resultadosWritten: boolean
+	private resultadosWritten: boolean;
 
 	constructor(equipoA: Equipo, equipoB: Equipo, faltas_descalificado_torneo: number, faltas_perder_partido: number){
 		this.equipoA = equipoA;
@@ -34,6 +52,44 @@ export class Enfrentamiento{
 
 		this.faltas_descalificado_torneo = faltas_descalificado_torneo;
 		this.faltas_perder_partido = faltas_perder_partido;
+	}
+
+	toJSON(): EnfrentamientoJSON{
+		let enf: EnfrentamientoJSON = {
+			nombreEquipoA: this.equipoA.getNombre(),
+			nombreEquipoB: this.equipoB.getNombre(),
+		
+			golesA: this.golesA,
+			faltasA: this.faltasA,
+		
+			golesB: this.golesB,
+			faltasB: this.faltasB,
+		
+			resultadoGanador: this.resultadoGanador,
+			
+			faltas_descalificado_torneo: this.faltas_descalificado_torneo,
+			faltas_perder_partido: this.faltas_perder_partido,
+		
+			resultadosWritten: this.resultadosWritten
+		}
+		return enf;
+	}
+
+	static createFromJSON(enfJs: EnfrentamientoJSON, eqs: Equipo[]): Enfrentamiento{
+		let eqA = eqs.filter(eq => eq.getNombre() == enfJs.nombreEquipoA)[0];
+		let eqB = eqs.filter(eq => eq.getNombre() == enfJs.nombreEquipoB)[0];
+		let enf = new Enfrentamiento(eqA, eqB, enfJs.faltas_descalificado_torneo, enfJs.faltas_perder_partido);
+	
+		enf.golesA = enfJs.golesA;
+		enf.faltasA = enfJs.faltasA;
+		enf.golesB = enfJs.golesB;
+		enf.faltasB = enfJs.faltasB;
+		enf.resultadoGanador = enfJs.resultadoGanador;
+		enf.faltas_descalificado_torneo = enfJs.faltas_descalificado_torneo;
+		enf.faltas_perder_partido = enfJs.faltas_perder_partido;
+		enf.resultadosWritten = enfJs.resultadosWritten;
+
+		return enf;
 	}
 
 	setResultados(golesA: number, faltasA: number, golesB:number, faltasB: number){

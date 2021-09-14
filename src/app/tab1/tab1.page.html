@@ -13,5 +13,5 @@
     </ion-toolbar>
   </ion-header>
   <ion-button size="large" color="primary" expand="block" (click)="click_advanced_round()" [disabled]="advance_round_disabled()" translate>advance_round</ion-button>
-  <app-match-happening *ngFor="let enf of enfrentamientos" [enfrentamiento]="enf"></app-match-happening>
+  <app-match-happening *ngFor="let enf of enfrentamientos" [enfrentamiento]="enf" (clickedSaveDataEvent)="updateStorageEnfrentamientosData($event)"></app-match-happening>
 </ion-content>

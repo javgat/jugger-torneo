@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
+import { StorageService } from '../services/storage.service';
 import { TranslatorService } from '../services/translator.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class TabsPage {
   torneoStartedSub: Subscription;
   subSub: Subscription;
 
-  constructor(private translator: TranslatorService, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
+  constructor(private translator: TranslatorService, private dataService: DataService, private router: Router,
+      private route: ActivatedRoute, private storageService: StorageService) {
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -41,7 +43,9 @@ export class TabsPage {
 
   checkIfChange(){
     if (!this.torneoStarted){
-      this.router.navigate(['/']);
+      if (this.storageService.isReady()){ // If it navigates back and then again to tabs, it doesn't work correctly
+        this.router.navigate(['/']);
+      }
     }
   }
 
