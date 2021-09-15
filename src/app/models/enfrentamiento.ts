@@ -173,8 +173,8 @@ export class Enfrentamiento{
 			this.resultadoGanador = GanadorPartido.EMPATE;
 		}
 
-		let totFaltasA = this.equipoA.getFaltas() + this.faltasA;
-		let totFaltasB = this.equipoB.getFaltas() + this.faltasB;
+		let totFaltasA = this.equipoA.getFaltas();
+		let totFaltasB = this.equipoB.getFaltas();
 
 		let isADescalificado = (totFaltasA >= this.faltas_descalificado_torneo) || (this.faltasA >= this.faltas_perder_partido);
 		let isBDescalificado = (totFaltasB >= this.faltas_descalificado_torneo) || (this.faltasB >= this.faltas_perder_partido);
