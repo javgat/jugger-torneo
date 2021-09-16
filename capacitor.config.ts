@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.javgat.jugger-torneo',
   appName: 'jugger-torneo',
   webDir: 'www',
   bundledWebRuntime: false
