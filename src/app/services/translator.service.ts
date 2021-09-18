@@ -26,11 +26,11 @@ export class TranslatorService {
     this._translate.setDefaultLang('en');
     if (language) {
       this.language = language.substr(0,2);
-      this._translate.use(this.language);
     } else {
       // Set your language here
       this.language = 'en';
     }
+    this._translate.use(this.language);
   }
 
   private getDeviceLanguage() {
