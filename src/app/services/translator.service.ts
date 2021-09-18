@@ -25,7 +25,8 @@ export class TranslatorService {
     // Set the default language for translation strings, and the current language.
     this._translate.setDefaultLang('en');
     if (language) {
-      this.language = language;
+      this.language = language.substr(0,2);
+      this._translate.use(this.language);
     } else {
       // Set your language here
       this.language = 'en';
