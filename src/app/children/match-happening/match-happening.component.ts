@@ -117,6 +117,10 @@ export class MatchHappeningComponent implements OnInit {
   }
 
   click_edit_again(){
+    this.inputGolesA = this.enfrentamiento.golesA;
+    this.inputGolesB = this.enfrentamiento.golesB;
+    this.inputFaltasA = this.enfrentamiento.faltasA;
+    this.inputFaltasB = this.enfrentamiento.faltasB;
     this.enfrentamiento.unsetResultado();
   }
 
