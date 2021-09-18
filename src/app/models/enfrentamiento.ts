@@ -193,7 +193,6 @@ export class Enfrentamiento {
 	}
 
 	private static matchGenBasicOrdered(clonEqs: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
-		this.log("matchGenBasicOrdered");
 		let newEnfs: Enfrentamiento[] = [];
 		while (clonEqs.length > 0) {
 			let eqA: Equipo = clonEqs[0];
@@ -224,7 +223,7 @@ export class Enfrentamiento {
 		});
 		let newEnfs: Enfrentamiento[] = [];
 		let forbiddenEqsPrev: Map<string, Equipo[]> = new Map<string, Equipo[]>();
-		let eqBeingForbid: Equipo;
+		let eqBeingForbid: Equipo; // Deepest (first) team being reformed
 		for (let i = 0; i < eqs.length; i++) {
 			let eqA: Equipo = eqs[i];
 			let eqAFree = freeEqs.some((e) => {
@@ -233,7 +232,7 @@ export class Enfrentamiento {
 			let found = false;
 			if (eqAFree) {
 				for (let j = 0; j < eqs.length; j++) {
-					if (j == i) {
+					if (j == i) { // if it is the same team, go to the next
 						continue;
 					}
 					let eqB: Equipo = eqs[j];
@@ -333,10 +332,6 @@ export class Enfrentamiento {
 			enfs = this.matchGenBasic(equipos, faltas_descalificado, faltas_perder_partido);
 		}
 		return enfs;
-	}
-
-	private static log(msg: string){
-		console.log("Enfrentamiento - "+msg);
 	}
 }
 

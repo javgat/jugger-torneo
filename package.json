@@ -1,8 +1,8 @@
 {
   "name": "jugger-torneo",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Javier Gatón Herguedas",
+  "homepage": "https://github.com/javgat/jugger-torneo",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
