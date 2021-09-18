@@ -69,4 +69,7 @@ export class Tab1Page {
     this.dataService.updateStorageEnfrentamientos(this.enfrentamientos);
   }
 
+  getRoundNumber(): number{
+    return this.equipos[0].getNumberEnfrentamientos() + 1;
+  }
 }

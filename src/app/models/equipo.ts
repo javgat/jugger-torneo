@@ -166,6 +166,10 @@ export class Equipo {
 		return this.getEnfrentamientosAgainst(e).length > 0;
 	}
 
+	getNumberEnfrentamientos(): number{
+		return this.enfrentamientos.length;
+	}
+
 	/**
 	 * Compares to other Equipo. this - other.
 	 * Negative if this is smaller. Smaller means goes last.

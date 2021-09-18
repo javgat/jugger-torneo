@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title translate>
-      round
+    <ion-title>
+      <span translate>round</span> {{getRoundNumber()}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" translate>round</ion-title>
+      <ion-title size="large"><span translate>round</span> {{getRoundNumber()}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-button size="large" color="primary" expand="block" (click)="click_advanced_round()" [disabled]="advance_round_disabled()" translate>advance_round</ion-button>
