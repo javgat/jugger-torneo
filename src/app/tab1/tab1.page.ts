@@ -70,6 +70,9 @@ export class Tab1Page {
   }
 
   getRoundNumber(): number{
+    if (this.equipos.length == 0) {
+      return 0;
+    }
     return this.equipos[0].getNumberEnfrentamientos() + 1;
   }
 }
