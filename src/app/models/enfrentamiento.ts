@@ -216,19 +216,17 @@ export class Enfrentamiento {
 		return newEnfs;
 	}
 
-	private static assignateMatches(eqs: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
-		let freeEqs: Equipo[] = [];
+	static assignateMatches(eqs: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+		let freeEqs: Set<Equipo> = new Set<Equipo>();
 		eqs.forEach((e) => {
-			freeEqs.push(e);
+			freeEqs.add(e);
 		});
 		let newEnfs: Enfrentamiento[] = [];
 		let forbiddenEqsPrev: Map<string, Equipo[]> = new Map<string, Equipo[]>();
 		let eqBeingForbid: Equipo; // Deepest (first) team being reformed
 		for (let i = 0; i < eqs.length; i++) {
 			let eqA: Equipo = eqs[i];
-			let eqAFree = freeEqs.some((e) => {
-				return e.getNombre() == eqA.getNombre();
-			});
+			let eqAFree = freeEqs.has(eqA);
 			let found = false;
 			if (eqAFree) {
 				for (let j = 0; j < eqs.length; j++) {
@@ -236,18 +234,15 @@ export class Enfrentamiento {
 						continue;
 					}
 					let eqB: Equipo = eqs[j];
-					let eqBFree = freeEqs.some((e) => {
-						return e.getNombre() == eqB.getNombre();
-					});
+					let eqBFree = freeEqs.has(eqB);
 					let eqForbidden = forbiddenEqsPrev.has(eqA.getNombre()) && forbiddenEqsPrev.get(eqA.getNombre()).some((e) => {
 						return e.getNombre() == eqB.getNombre();
 					});
 					if (eqBFree) {
 						if (!eqForbidden) {
 							if (!eqA.hasPlayedAgainst(eqB)) {
-								freeEqs = freeEqs.filter((eq) => {
-									return eq.getNombre() != eqA.getNombre() && eq.getNombre() != eqB.getNombre();
-								});
+								freeEqs.delete(eqA);
+								freeEqs.delete(eqB);
 								newEnfs.push(new Enfrentamiento(eqA, eqB, faltas_descalificado, faltas_perder_partido));
 								found = true;
 							}
@@ -271,9 +266,9 @@ export class Enfrentamiento {
 					}
 					forbiddenEqsPrev.get(oldEnf.equipoA.getNombre()).push(oldEnf.equipoB);
 					eqBeingForbid = oldEnf.equipoA;
-					freeEqs.push(oldEnf.equipoA);
-					freeEqs.push(oldEnf.equipoB);
-					i = 0;
+					freeEqs.add(oldEnf.equipoA);
+					freeEqs.add(oldEnf.equipoB);
+					i = -1; // then i++ and i = 0
 				}
 			}
 		}
