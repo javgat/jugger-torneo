@@ -1,10 +1,10 @@
-# jugger-torneo
+# jugger-torneo 
+
+![Version 0.0.2](https://img.shields.io/badge/version-0.0.2-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 Swiss-system tournament ionic app tailored for Jugger players.
 
 Using Ionic 5 with Angular. Built for Android.
-
-License: MIT
 
 ## Testing
 
