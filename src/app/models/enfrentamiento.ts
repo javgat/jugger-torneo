@@ -275,6 +275,10 @@ export class Enfrentamiento {
 		return newEnfs;
 	}
 
+	/**
+	 * Divide teams in groups of two. If a group can't make matches for all teams, it's joined by the next group. If it's the
+	 * last group, it's joined by the previous group. If it can't make matches still, returns empty array.
+	 */
 	private static matchGenComplexOrdered(eqs: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
 		let grupos_nenfs: Enfrentamiento[][] = [];
 		let eqs_group: Equipo[] = [];
