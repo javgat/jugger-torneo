@@ -1,4 +1,4 @@
-# jugger-torneo 
+# jugger-torneo
 
 ![Version 0.0.2](https://img.shields.io/badge/version-0.0.2-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
