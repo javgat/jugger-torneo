@@ -147,6 +147,5 @@ describe('Enfrentamiento', () => {
 		}
 		expect(enfs[7].equipoA.getNombre()).toBe(eqs[14].getNombre());
 		expect(enfs[7].equipoB.getNombre()).toBe(eqs[15].getNombre());
-
 	});
 });
