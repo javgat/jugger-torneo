@@ -1,15 +1,16 @@
 {
   "name": "jugger-torneo",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "version": "1.0.0",
+  "author": "Javier Gatón Herguedas",
+  "homepage": "https://github.com/javgat/jugger-torneo",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "resources": "cordova-res android && node scripts/resources.js"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "@capacitor/android": "3.2.2",
     "@capacitor/app": "1.0.2",
     "@capacitor/core": "3.2.0",
     "@capacitor/filesystem": "^1.0.2",
@@ -27,8 +29,13 @@
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/status-bar": "1.0.2",
     "@capacitor/storage": "^1.0.3",
+    "@ionic-native/globalization": "^5.36.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/pwa-elements": "^3.0.2",
+    "@ionic/storage-angular": "^3.0.6",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
+    "cordova-plugin-globalization": "^1.11.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -50,6 +57,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "cordova-res": "^0.15.3",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",

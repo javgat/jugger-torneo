@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title translate>
+      ranking
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,28 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large" translate>ranking</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col><strong translate>position_ranking</strong></ion-col>
+            <ion-col size="5">
+              <h2><strong translate>team</strong></h2>
+            </ion-col>
+            <ion-col></ion-col>
+            <ion-col><strong translate>points_ranking</strong></ion-col>
+            <ion-col><strong translate>faults_ranking</strong></ion-col>
+            <ion-col><strong translate>goal_average_ranking</strong></ion-col>
+            <ion-col><strong translate>wdl_ranking</strong></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+    <app-team-ranking *ngFor="let eq of equipos; let i = index" [position]="getPosition(i)" [equipo]="eq"></app-team-ranking>
+  </ion-list>
 </ion-content>

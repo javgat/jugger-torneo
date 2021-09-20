@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title translate>
+      new_tournament
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label text-wrap translate>faltas_descalificado_desc</ion-label>
+    <ion-input [(ngModel)]="faltas_descalificado_torneo" type="number" min="1"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label text-wrap translate>faltas_perder_partido_desc</ion-label>
+    <ion-input [(ngModel)]="faltas_perder_partido" type="number" min="1"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isRepeatedNameEquipo()">
+    <ion-badge text-wrap color="danger" translate>repeated_names_err_msg</ion-badge>
+  </ion-item>
+  <ion-button size="large" color="primary" expand="block" (click)="click_start_tournament()" [disabled]="start_tournament_disabled()" translate>start_tournament</ion-button>
+  <div *ngFor="let enf of enfrentamientos">
+    <app-match-created [enfrentamiento]="enf" (deletedEvent)="delete_match($event)"></app-match-created>
+  </div>
+  <app-match-creating (createdEvent)="new_match($event)"></app-match-creating>
+</ion-content>

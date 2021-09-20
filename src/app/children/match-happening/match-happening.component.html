@@ -1,0 +1,67 @@
+<ion-grid>
+  <ion-row>
+    <ion-col>{{getNameA()}}</ion-col>
+    <ion-col>{{getNameB()}}</ion-col>
+  </ion-row>
+  <div *ngIf="isEditing()">
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesA" min="0"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesB" min="0"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasA" min="0"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasB" min="0"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label translate>winner</ion-label>
+          <ion-select [(ngModel)]="winner_select_val" [compareWith]="compare_select">
+            <ion-select-option value="{{getEnumAutomaticVal()}}" translate>automatic</ion-select-option>
+            <ion-select-option value="{{getEnumEquipoAVal()}}">{{getNameA()}}</ion-select-option>
+            <ion-select-option value="{{getEnumEquipoBVal()}}">{{getNameB()}}</ion-select-option>
+            <ion-select-option value="{{getEnumEmpateVal()}}" translate>tie</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="success" (click)="click_save_data()" [disabled]="is_click_disabled()" expand="block">
+          <span translate>save</span>
+          <ion-icon slot="end" name="save-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="!isEditing()">
+    <ion-row>
+      <ion-col>{{getGolesA()}}</ion-col>
+      <ion-col>{{getGolesB()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>{{getFaltasA()}}</ion-col>
+      <ion-col>{{getFaltasB()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="!isEmpate()"><span translate>winner</span>: {{getGanador()}}</ion-col>
+      <ion-col *ngIf="isEmpate()" translate>tie</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="success" (click)="click_edit_again()"expand="block">
+          <span translate>edit</span>
+          <ion-icon slot="end" name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-grid>
