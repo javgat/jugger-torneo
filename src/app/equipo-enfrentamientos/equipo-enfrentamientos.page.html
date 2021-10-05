@@ -12,7 +12,9 @@
 <ion-content [fullscreen]="true">
   <div *ngIf="isTeamLoaded">
     <h1 class="page-heading">{{getTeamName()}}</h1>
-    <app-match-happened *ngFor="let enf of equipo.enfrentamientos" [enfrentamiento]="enf"
-      [indice]="indiceDe(enf, equipo.enfrentamientos)"></app-match-happened>
+    <ion-list>
+      <app-match-happened *ngFor="let enf of equipo.enfrentamientos" [enfrentamiento]="enf"
+        [indice]="indiceDe(enf, equipo.enfrentamientos)"></app-match-happened>
+    </ion-list>
   </div>
 </ion-content>
