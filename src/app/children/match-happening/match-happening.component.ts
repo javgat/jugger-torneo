@@ -14,6 +14,8 @@ export class MatchHappeningComponent implements OnInit {
 
   @Input() enfrentamiento: Enfrentamiento;
 
+  @Input() indice: number;
+
   @Output() clickedSaveDataEvent = new EventEmitter<any>();
 
   callParentClickedSaveDataEvent() {

@@ -1,0 +1,23 @@
+<ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col id="col-indice"><strong>{{indice}}</strong></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>{{getNameA()}}</ion-col>
+      <ion-col>{{getNameB()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>{{getGolesA()}}</ion-col>
+      <ion-col>{{getGolesB()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>{{getFaltasA()}}</ion-col>
+      <ion-col>{{getFaltasB()}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="!isEmpate()"><span translate>winner</span>: {{getGanador()}}</ion-col>
+      <ion-col *ngIf="isEmpate()" translate>tie</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>

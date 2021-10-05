@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./nuevo-torneo/nuevo-torneo.module').then( m => m.NuevoTorneoPageModule)
+  },
+  {
+    path: 'equipo-enfrentamientos/:teamname',
+    loadChildren: () => import('./equipo-enfrentamientos/equipo-enfrentamientos.module').then( m => m.EquipoEnfrentamientosPageModule)
   }
 ];
 @NgModule({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Equipo } from '../models/equipo';
 import { DataService } from '../services/data.service';
@@ -20,7 +20,7 @@ export class Tab2Page {
 
   equipos: Equipo[];
 
-  constructor(private translator: TranslatorService, private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private translator: TranslatorService, private dataService: DataService, route: ActivatedRoute, private router: Router) {
     this.equipos = [];
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
@@ -59,6 +59,10 @@ export class Tab2Page {
       return this.getPosition(i-1);
     }
     return i+1;
+  }
+
+  clickedTeam(eq: Equipo){
+    this.router.navigate(['/equipo-enfrentamientos/' + eq.getNombre()]);
   }
 
 }

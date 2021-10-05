@@ -31,6 +31,6 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-    <app-team-ranking *ngFor="let eq of equipos; let i = index" [position]="getPosition(i)" [equipo]="eq"></app-team-ranking>
+    <app-team-ranking *ngFor="let eq of equipos; let i = index" [position]="getPosition(i)" [equipo]="eq" (click)="clickedTeam(eq)"></app-team-ranking>
   </ion-list>
 </ion-content>
