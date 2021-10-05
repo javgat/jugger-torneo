@@ -14,5 +14,5 @@
   </ion-header>
   <h1 class="page-heading"><span translate>round</span> {{getRoundNumber()}}</h1>
   <ion-button size="large" color="primary" expand="block" (click)="click_advanced_round()" [disabled]="advance_round_disabled()" translate>advance_round</ion-button>
-  <app-match-happening *ngFor="let enf of enfrentamientos" [enfrentamiento]="enf" (clickedSaveDataEvent)="updateStorageEnfrentamientosData($event)"></app-match-happening>
+  <app-match-happening *ngFor="let enf of enfrentamientos" [indice]="indiceDe(enf, enfrentamientos)" [enfrentamiento]="enf" (clickedSaveDataEvent)="updateStorageEnfrentamientosData($event)"></app-match-happening>
 </ion-content>

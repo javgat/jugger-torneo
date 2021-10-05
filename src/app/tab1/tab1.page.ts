@@ -75,4 +75,8 @@ export class Tab1Page {
     }
     return this.equipos[0].getNumberEnfrentamientos() + 1;
   }
+
+  indiceDe(enf: Enfrentamiento, enfrentamientos: Enfrentamiento[]){
+    return enfrentamientos.indexOf(enf) + 1;
+  }
 }
