@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Enfrentamiento } from 'src/app/models/enfrentamiento';
+import { Enfrentamiento, SelectWinner } from 'src/app/models/enfrentamiento';
 import { TranslatorService } from 'src/app/services/translator.service';
 
 @Component({
@@ -27,12 +27,23 @@ export class MatchHappeningComponent implements OnInit {
   inputFaltasA: number;
   inputFaltasB: number;
   winner_select_val: SelectWinner;
+  showSelectWinner: boolean;
 
   constructor(private translator: TranslatorService) {
     this.winner_select_val = SelectWinner.AUTOMATICO;
+    this.showSelectWinner = false;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.winner_select_val = this.enfrentamiento.selectWinner;
+    this.inputGolesA = this.enfrentamiento.golesA;
+    this.inputGolesB = this.enfrentamiento.golesB;
+    this.inputFaltasA = this.enfrentamiento.faltasA;
+    this.inputFaltasB = this.enfrentamiento.faltasB;
+    if (this.winner_select_val != SelectWinner.AUTOMATICO){
+      this.showSelectWinner = true;
+    }
+  }
 
   isEditing(): boolean{
     return !this.enfrentamiento.isResultadosSet();
@@ -95,19 +106,34 @@ export class MatchHappeningComponent implements OnInit {
     return n1 == n2;
   }
 
-  is_click_disabled(): boolean{
+  is_ganador_disabled(): boolean{
     return this.inputGolesA == undefined || this.inputGolesB == undefined;
   }
 
-  click_save_data(){
-    if (this.inputFaltasA == undefined){
-      this.inputFaltasA = 0;
-    }
-    if (this.inputFaltasB == undefined){
-      this.inputFaltasB = 0;
-    }
+  click_edit_winner(): void{
+    this.showSelectWinner = !this.showSelectWinner;
+  }
 
-    this.enfrentamiento.setResultados(this.inputGolesA, this.inputFaltasA, this.inputGolesB, this.inputFaltasB);
+  inputChanged(): void{
+    if (this.is_ganador_disabled()){
+      this.clearDataEnfrentamiento();
+    } else {
+      this.updateDataEnfrentamiento();
+    }
+  }
+
+  updateDataEnfrentamiento(): void{
+    if (this.enfrentamiento.isResultadosSet()){
+      this.enfrentamiento.unsetResultado();
+    }
+    this.saveDataEnfrentamiento();
+  }
+
+  saveDataEnfrentamiento(){
+    let faltasA = this.inputFaltasA || 0;
+    let faltasB = this.inputFaltasB || 0;
+
+    this.enfrentamiento.setResultados(this.inputGolesA, faltasA, this.inputGolesB, faltasB);
     if (this.winner_select_val == SelectWinner.EQUIPOA) {
       this.enfrentamiento.setForcedGanadorA();
     } else if (this.winner_select_val == SelectWinner.EQUIPOB) {
@@ -118,19 +144,8 @@ export class MatchHappeningComponent implements OnInit {
     this.callParentClickedSaveDataEvent();
   }
 
-  click_edit_again(){
-    this.inputGolesA = this.enfrentamiento.golesA;
-    this.inputGolesB = this.enfrentamiento.golesB;
-    this.inputFaltasA = this.enfrentamiento.faltasA;
-    this.inputFaltasB = this.enfrentamiento.faltasB;
+  clearDataEnfrentamiento(){
     this.enfrentamiento.unsetResultado();
   }
 
-}
-
-enum SelectWinner{
-  AUTOMATICO,
-  EQUIPOA,
-  EQUIPOB,
-  EMPATE
 }
