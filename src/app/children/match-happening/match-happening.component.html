@@ -37,10 +37,13 @@
     </ion-row>
     <ion-row *ngIf="!is_ganador_disabled()">
       <ion-col size="2"></ion-col>
-      <ion-col size="8" *ngIf="!isEmpate()"><span translate>winner</span>: {{getGanador()}}</ion-col>
-      <ion-col size="8" *ngIf="isEmpate()" translate>tie</ion-col>
+      <ion-col size="8" *ngIf="!isEmpate()"><ion-label class="center"><span translate>winner</span>: {{getGanador()}}</ion-label></ion-col>
+      <ion-col size="8" *ngIf="isEmpate()"><ion-label class="center" translate>tie</ion-label></ion-col>
       <ion-col size="2">
-        <ion-button color="success" (click)="click_edit_winner()">
+        <ion-button *ngIf="!showSelectWinner" color="success" size="small" (click)="click_edit_winner()">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="showSelectWinner" color="warning" size="small" (click)="click_edit_winner()">
           <ion-icon name="create-outline"></ion-icon>
         </ion-button>
       </ion-col>
