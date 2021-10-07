@@ -35,19 +35,23 @@ export class MatchHappeningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.winner_select_val = this.enfrentamiento.selectWinner;
-    this.inputGolesA = this.enfrentamiento.golesA;
-    this.inputGolesB = this.enfrentamiento.golesB;
-    this.inputFaltasA = this.enfrentamiento.faltasA;
-    this.inputFaltasB = this.enfrentamiento.faltasB;
-    if (this.winner_select_val != SelectWinner.AUTOMATICO){
-      this.showSelectWinner = true;
+    if (this.enfrentamiento.isResultadosSet()){
+      this.winner_select_val = this.enfrentamiento.selectWinner;
+      this.inputGolesA = this.enfrentamiento.golesA;
+      this.inputGolesB = this.enfrentamiento.golesB;
+      this.inputFaltasA = this.enfrentamiento.faltasA;
+      this.inputFaltasB = this.enfrentamiento.faltasB;
+      if (this.winner_select_val != SelectWinner.AUTOMATICO){
+        this.showSelectWinner = true;
+      }
     }
   }
 
-  isEditing(): boolean{
-    return !this.enfrentamiento.isResultadosSet();
-  }
+  /////
+  // UI
+  /////
+
+  // Show data in UI
 
   getNameA(): string{
     return this.enfrentamiento.equipoA.getNombre();
@@ -73,10 +77,6 @@ export class MatchHappeningComponent implements OnInit {
     return this.enfrentamiento.faltasB.toString();
   }
 
-  isEmpate(): boolean{
-    return this.enfrentamiento.isEmpate();
-  }
-
   getGanador(): string{
     if (this.enfrentamiento.isEquipoAWinner()){
       return this.getNameA();
@@ -85,6 +85,8 @@ export class MatchHappeningComponent implements OnInit {
     }
     return "";
   }
+
+  // Values functions and data for UI functioning (not conditionals nor data to be shown)
 
   getEnumAutomaticVal(): number{
     return SelectWinner.AUTOMATICO;
@@ -106,30 +108,46 @@ export class MatchHappeningComponent implements OnInit {
     return n1 == n2;
   }
 
-  is_ganador_disabled(): boolean{
-    return this.inputGolesA == undefined || this.inputGolesB == undefined;
+  // Conditionals for showing elements UI
+
+  isEmpate(): boolean{
+    return this.enfrentamiento.isEmpate();
   }
+
+  is_ganador_disabled(): boolean{
+    return !this.enfrentamiento.isResultadosSet();
+  }
+
+  // Actions called by UI
 
   click_edit_winner(): void{
     this.showSelectWinner = !this.showSelectWinner;
   }
 
   inputChanged(): void{
-    if (this.is_ganador_disabled()){
+    if (this.notEnoughInputForEnfrentamiento()){
       this.clearDataEnfrentamiento();
     } else {
       this.updateDataEnfrentamiento();
     }
   }
 
-  updateDataEnfrentamiento(): void{
+  /////
+  // Other functions
+  /////
+
+  private notEnoughInputForEnfrentamiento(): boolean{
+    return this.inputGolesA == undefined || this.inputGolesB == undefined;
+  }
+
+  private updateDataEnfrentamiento(): void{
     if (this.enfrentamiento.isResultadosSet()){
       this.enfrentamiento.unsetResultado();
     }
     this.saveDataEnfrentamiento();
   }
 
-  saveDataEnfrentamiento(){
+  private saveDataEnfrentamiento(){
     let faltasA = this.inputFaltasA || 0;
     let faltasB = this.inputFaltasB || 0;
 
@@ -144,7 +162,7 @@ export class MatchHappeningComponent implements OnInit {
     this.callParentClickedSaveDataEvent();
   }
 
-  clearDataEnfrentamiento(){
+  private clearDataEnfrentamiento(){
     this.enfrentamiento.unsetResultado();
   }
 
