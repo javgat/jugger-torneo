@@ -1,6 +1,6 @@
 # jugger-torneo
 
-![Version 1.1.0](https://img.shields.io/badge/version-1.1.0-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Version 1.2.0](https://img.shields.io/badge/version-1.2.0-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 Swiss-system tournament ionic app tailored for Jugger players.
 
@@ -10,7 +10,9 @@ Using Ionic 5 with Angular. Built for Android.
 
 ### Version 1.2
 
-- Round page UX improved, reduced the complexity of the action flux the user had to conduct
+- [x] Round page UX improved, reduction of the complexity of the action flux the user had to conduct
+- [ ] Improve UX of the tournament creation page
+- [ ] Help in options tab
 
 ### Version 1.1
 

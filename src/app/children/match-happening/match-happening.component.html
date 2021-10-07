@@ -6,46 +6,55 @@
     <ion-col>{{getNameA()}}</ion-col>
     <ion-col>{{getNameB()}}</ion-col>
   </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesA" min="0" (ngModelChange)="inputChanged()"></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesB" min="0" (ngModelChange)="inputChanged()"></ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasA" min="0" (ngModelChange)="inputChanged()"></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasB" min="0" (ngModelChange)="inputChanged()"></ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngIf="showSelectWinner">
-      <ion-col>
-        <ion-item>
-          <ion-label translate>winner</ion-label>
-          <ion-select [(ngModel)]="winner_select_val" [compareWith]="compare_select" (ngModelChange)="inputChanged()">
-            <ion-select-option value="{{getEnumAutomaticVal()}}" translate>automatic</ion-select-option>
-            <ion-select-option value="{{getEnumEquipoAVal()}}">{{getNameA()}}</ion-select-option>
-            <ion-select-option value="{{getEnumEquipoBVal()}}">{{getNameB()}}</ion-select-option>
-            <ion-select-option value="{{getEnumEmpateVal()}}" translate>tie</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngIf="!is_ganador_disabled()">
-      <ion-col size="2"></ion-col>
-      <ion-col size="8" *ngIf="!isEmpate()"><ion-label class="center"><span translate>winner</span>: {{getGanador()}}</ion-label></ion-col>
-      <ion-col size="8" *ngIf="isEmpate()"><ion-label class="center" translate>tie</ion-label></ion-col>
-      <ion-col size="2">
-        <ion-button *ngIf="!showSelectWinner" color="success" size="small" (click)="click_edit_winner()">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-button *ngIf="showSelectWinner" color="warning" size="small" (click)="click_edit_winner()">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesA" min="0"
+        (ngModelChange)="inputChanged()"></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input placeholder="{{'goals' | translate}}" type="number" [(ngModel)]="inputGolesB" min="0"
+        (ngModelChange)="inputChanged()"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasA" min="0"
+        (ngModelChange)="inputChanged()"></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-input placeholder="{{'faults' | translate}}" type="number" [(ngModel)]="inputFaltasB" min="0"
+        (ngModelChange)="inputChanged()"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!is_ganador_disabled()">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8" *ngIf="!isEmpate()">
+      <ion-label class="center"><span translate>winner</span>: {{getGanador()}}</ion-label>
+    </ion-col>
+    <ion-col size="8" *ngIf="isEmpate()">
+      <ion-label class="center" translate>tie</ion-label>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button *ngIf="!showSelectWinner" color="success" size="small" (click)="click_edit_winner()">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="showSelectWinner" color="warning" size="small" (click)="click_edit_winner()">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="showSelectWinner">
+    <ion-col>
+      <ion-item>
+        <ion-label translate>winner</ion-label>
+        <ion-select [(ngModel)]="winner_select_val" [compareWith]="compare_select" (ngModelChange)="inputChanged()">
+          <ion-select-option value="{{getEnumAutomaticVal()}}" translate>automatic</ion-select-option>
+          <ion-select-option value="{{getEnumEquipoAVal()}}">{{getNameA()}}</ion-select-option>
+          <ion-select-option value="{{getEnumEquipoBVal()}}">{{getNameB()}}</ion-select-option>
+          <ion-select-option value="{{getEnumEmpateVal()}}" translate>tie</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-item-divider></ion-item-divider>
 </ion-grid>

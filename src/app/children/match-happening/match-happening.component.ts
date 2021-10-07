@@ -35,13 +35,13 @@ export class MatchHappeningComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.enfrentamiento.isResultadosSet()){
+    if (this.enfrentamiento.isResultadosSet()) {
       this.winner_select_val = this.enfrentamiento.selectWinner;
       this.inputGolesA = this.enfrentamiento.golesA;
       this.inputGolesB = this.enfrentamiento.golesB;
       this.inputFaltasA = this.enfrentamiento.faltasA;
       this.inputFaltasB = this.enfrentamiento.faltasB;
-      if (this.winner_select_val != SelectWinner.AUTOMATICO){
+      if (this.winner_select_val != SelectWinner.AUTOMATICO) {
         this.showSelectWinner = true;
       }
     }
@@ -53,79 +53,68 @@ export class MatchHappeningComponent implements OnInit {
 
   // Show data in UI
 
-  getNameA(): string{
+  getNameA(): string {
     return this.enfrentamiento.equipoA.getNombre();
   }
 
-  getNameB(): string{
+  getNameB(): string {
     return this.enfrentamiento.equipoB.getNombre();
   }
 
-  getGolesA(): string{
-    return this.enfrentamiento.golesA.toString();
-  }
-
-  getGolesB(): string{
-    return this.enfrentamiento.golesB.toString();
-  }
-
-  getFaltasA(): string{
-    return this.enfrentamiento.faltasA.toString();
-  }
-
-  getFaltasB(): string{
-    return this.enfrentamiento.faltasB.toString();
-  }
-
-  getGanador(): string{
-    if (this.enfrentamiento.isEquipoAWinner()){
-      return this.getNameA();
-    } else if (this.enfrentamiento.isEquipoBWinner()){
-      return this.getNameB();
+  getGanador(): string {
+    if (this.enfrentamiento.isResultadosSet()) {
+      if (this.enfrentamiento.isEquipoAWinner()) {
+        return this.getNameA();
+      } else if (this.enfrentamiento.isEquipoBWinner()) {
+        return this.getNameB();
+      }
     }
     return "";
   }
 
   // Values functions and data for UI functioning (not conditionals nor data to be shown)
 
-  getEnumAutomaticVal(): number{
+  getEnumAutomaticVal(): number {
     return SelectWinner.AUTOMATICO;
   }
 
-  getEnumEquipoAVal(): number{
+  getEnumEquipoAVal(): number {
     return SelectWinner.EQUIPOA;
   }
 
-  getEnumEquipoBVal(): number{
+  getEnumEquipoBVal(): number {
     return SelectWinner.EQUIPOB;
   }
 
-  getEnumEmpateVal(): number{
+  getEnumEmpateVal(): number {
     return SelectWinner.EMPATE;
   }
 
-  compare_select(n1: number, n2:number): boolean{
+  compare_select(n1: number, n2: number): boolean {
     return n1 == n2;
   }
 
   // Conditionals for showing elements UI
 
-  isEmpate(): boolean{
-    return this.enfrentamiento.isEmpate();
+  isEmpate(): boolean {
+    if (this.enfrentamiento.isResultadosSet()){
+      return this.enfrentamiento.isEmpate();
+    }
+    return false;
   }
 
-  is_ganador_disabled(): boolean{
+  is_ganador_disabled(): boolean {
     return !this.enfrentamiento.isResultadosSet();
   }
 
   // Actions called by UI
 
-  click_edit_winner(): void{
+  click_edit_winner(): void {
     this.showSelectWinner = !this.showSelectWinner;
   }
 
-  inputChanged(): void{
-    if (this.notEnoughInputForEnfrentamiento()){
+  inputChanged(): void {
+    if (this.notEnoughInputForEnfrentamiento()) {
       this.clearDataEnfrentamiento();
     } else {
       this.updateDataEnfrentamiento();
@@ -136,18 +125,18 @@ export class MatchHappeningComponent implements OnInit {
   // Other functions
   /////
 
-  private notEnoughInputForEnfrentamiento(): boolean{
+  private notEnoughInputForEnfrentamiento(): boolean {
     return this.inputGolesA == undefined || this.inputGolesB == undefined;
   }
 
-  private updateDataEnfrentamiento(): void{
-    if (this.enfrentamiento.isResultadosSet()){
+  private updateDataEnfrentamiento(): void {
+    if (this.enfrentamiento.isResultadosSet()) {
       this.enfrentamiento.unsetResultado();
     }
     this.saveDataEnfrentamiento();
   }
 
-  private saveDataEnfrentamiento(){
+  private saveDataEnfrentamiento() {
     let faltasA = this.inputFaltasA || 0;
     let faltasB = this.inputFaltasB || 0;
 
@@ -162,7 +151,7 @@ export class MatchHappeningComponent implements OnInit {
     this.callParentClickedSaveDataEvent();
   }
 
-  private clearDataEnfrentamiento(){
+  private clearDataEnfrentamiento() {
     this.enfrentamiento.unsetResultado();
   }
 

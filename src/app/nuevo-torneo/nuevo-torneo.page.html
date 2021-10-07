@@ -18,7 +18,8 @@
   <ion-item *ngIf="isRepeatedNameEquipo()">
     <ion-badge text-wrap color="danger" translate>repeated_names_err_msg</ion-badge>
   </ion-item>
-  <ion-button size="large" color="primary" expand="block" (click)="click_start_tournament()" [disabled]="start_tournament_disabled()" translate>start_tournament</ion-button>
+  <ion-button size="large" color="primary" expand="block" (click)="click_start_tournament()"
+    [disabled]="start_tournament_disabled()" class="ion-margin" translate>start_tournament</ion-button>
   <div *ngFor="let enf of enfrentamientos">
     <app-match-created [enfrentamiento]="enf" (deletedEvent)="delete_match($event)"></app-match-created>
   </div>
