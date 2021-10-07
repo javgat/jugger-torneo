@@ -8,6 +8,10 @@ Using Ionic 5 with Angular. Built for Android.
 
 ## New features
 
+### Version 1.2
+
+- Round page UX improved, reduced the complexity of the action flux the user had to conduct
+
 ### Version 1.1
 
 - Match history of each team
