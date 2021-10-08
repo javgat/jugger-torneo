@@ -153,6 +153,7 @@ export class MatchHappeningComponent implements OnInit {
 
   private clearDataEnfrentamiento() {
     this.enfrentamiento.unsetResultado();
+    this.callParentClickedSaveDataEvent();
   }
 
 }

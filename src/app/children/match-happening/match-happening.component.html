@@ -43,7 +43,7 @@
       </ion-button>
     </ion-col>
   </ion-row>
-  <ion-row *ngIf="showSelectWinner">
+  <ion-row *ngIf="showSelectWinner && !is_ganador_disabled()">
     <ion-col>
       <ion-item>
         <ion-label translate>winner</ion-label>
