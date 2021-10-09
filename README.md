@@ -11,7 +11,7 @@ Using Ionic 5 with Angular. Built for Android.
 ### Version 1.2
 
 - [x] Round page UX improved, reduction of the complexity of the action flux the user had to conduct
-- [ ] Improve UX of the tournament creation page
+- [x] Tournament creation page UX improved, and matches can be modified instead of just deleted.
 - [ ] Help in options tab
 
 ### Version 1.1

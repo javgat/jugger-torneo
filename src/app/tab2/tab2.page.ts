@@ -20,7 +20,8 @@ export class Tab2Page {
 
   equipos: Equipo[];
 
-  constructor(private translator: TranslatorService, private dataService: DataService, route: ActivatedRoute, private router: Router) {
+  constructor(private translator: TranslatorService, private dataService: DataService,
+    route: ActivatedRoute, private router: Router) {
     this.equipos = [];
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
