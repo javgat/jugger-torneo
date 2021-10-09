@@ -30,5 +30,6 @@
 	"faltas_descalificado_desc": "Number of faults for disqualifying a team",
 	"faltas_perder_partido_desc": "Number of faults for losing a match",
 	"repeated_names_err_msg": "Teamnames can't be repeated",
-	"enfrentamientos": "Matches"
+	"enfrentamientos": "Matches",
+	"add": "Add"
 }

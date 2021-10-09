@@ -1,0 +1,17 @@
+ion-select::part(icon) {
+	display: none !important;
+}
+ion-col {
+	text-align: center;
+}
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: 
+	  translateY(-50%)
+	  translateX(-50%);
+}
+ion-item-divider {
+	min-height: 10px;
+}

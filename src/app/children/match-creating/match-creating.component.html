@@ -1,5 +1,8 @@
 <ion-input placeholder="{{'team_name' | translate}}" [(ngModel)]="firstTeamName"></ion-input>
-<ion-input placeholder="{{'team_name' | translate}}" [(ngModel)]="secondTeamName" (keydown.enter)="click_save_match()"></ion-input>
-<ion-button color="primary" expand="block" (click)="click_save_match()" [disabled]="create_match_disabled()">
+<ion-input placeholder="{{'team_name' | translate}}" [(ngModel)]="secondTeamName" (keydown.enter)="click_save_match()">
+</ion-input>
+<ion-button color="primary" expand="block" (click)="click_save_match()" [disabled]="create_match_disabled()"
+	class="ion-margin">
+	<span translate>add</span>
 	<ion-icon name="add-outline"></ion-icon>
 </ion-button>
