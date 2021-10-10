@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'equipo-enfrentamientos/:teamname',
     loadChildren: () => import('./equipo-enfrentamientos/equipo-enfrentamientos.module').then( m => m.EquipoEnfrentamientosPageModule)
+  },
+  {
+    path: 'ranking-help',
+    loadChildren: () => import('./ranking-help/ranking-help.module').then( m => m.RankingHelpPageModule)
   }
 ];
 @NgModule({
