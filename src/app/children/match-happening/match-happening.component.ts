@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Enfrentamiento } from 'src/app/models/enfrentamiento';
+import { Enfrentamiento, SelectWinner } from 'src/app/models/enfrentamiento';
 import { TranslatorService } from 'src/app/services/translator.service';
 
 @Component({
@@ -27,87 +27,120 @@ export class MatchHappeningComponent implements OnInit {
   inputFaltasA: number;
   inputFaltasB: number;
   winner_select_val: SelectWinner;
+  showSelectWinner: boolean;
 
   constructor(private translator: TranslatorService) {
     this.winner_select_val = SelectWinner.AUTOMATICO;
+    this.showSelectWinner = false;
   }
 
-  ngOnInit() {}
-
-  isEditing(): boolean{
-    return !this.enfrentamiento.isResultadosSet();
+  ngOnInit() {
+    if (this.enfrentamiento.isResultadosSet()) {
+      this.winner_select_val = this.enfrentamiento.selectWinner;
+      this.inputGolesA = this.enfrentamiento.golesA;
+      this.inputGolesB = this.enfrentamiento.golesB;
+      this.inputFaltasA = this.enfrentamiento.faltasA;
+      this.inputFaltasB = this.enfrentamiento.faltasB;
+      if (this.winner_select_val != SelectWinner.AUTOMATICO) {
+        this.showSelectWinner = true;
+      }
+    }
   }
 
-  getNameA(): string{
+  /////
+  // UI
+  /////
+
+  // Show data in UI
+
+  getNameA(): string {
     return this.enfrentamiento.equipoA.getNombre();
   }
 
-  getNameB(): string{
+  getNameB(): string {
     return this.enfrentamiento.equipoB.getNombre();
   }
 
-  getGolesA(): string{
-    return this.enfrentamiento.golesA.toString();
-  }
-
-  getGolesB(): string{
-    return this.enfrentamiento.golesB.toString();
-  }
-
-  getFaltasA(): string{
-    return this.enfrentamiento.faltasA.toString();
-  }
-
-  getFaltasB(): string{
-    return this.enfrentamiento.faltasB.toString();
-  }
-
-  isEmpate(): boolean{
-    return this.enfrentamiento.isEmpate();
-  }
-
-  getGanador(): string{
-    if (this.enfrentamiento.isEquipoAWinner()){
-      return this.getNameA();
-    } else if (this.enfrentamiento.isEquipoBWinner()){
-      return this.getNameB();
+  getGanador(): string {
+    if (this.enfrentamiento.isResultadosSet()) {
+      if (this.enfrentamiento.isEquipoAWinner()) {
+        return this.getNameA();
+      } else if (this.enfrentamiento.isEquipoBWinner()) {
+        return this.getNameB();
+      }
     }
     return "";
   }
 
-  getEnumAutomaticVal(): number{
+  // Values functions and data for UI functioning (not conditionals nor data to be shown)
+
+  getEnumAutomaticVal(): number {
     return SelectWinner.AUTOMATICO;
   }
 
-  getEnumEquipoAVal(): number{
+  getEnumEquipoAVal(): number {
     return SelectWinner.EQUIPOA;
   }
 
-  getEnumEquipoBVal(): number{
+  getEnumEquipoBVal(): number {
     return SelectWinner.EQUIPOB;
   }
 
-  getEnumEmpateVal(): number{
+  getEnumEmpateVal(): number {
     return SelectWinner.EMPATE;
   }
 
-  compare_select(n1: number, n2:number): boolean{
+  compare_select(n1: number, n2: number): boolean {
     return n1 == n2;
   }
 
-  is_click_disabled(): boolean{
+  // Conditionals for showing elements UI
+
+  isEmpate(): boolean {
+    if (this.enfrentamiento.isResultadosSet()){
+      return this.enfrentamiento.isEmpate();
+    }
+    return false;
+  }
+
+  is_ganador_disabled(): boolean {
+    return !this.enfrentamiento.isResultadosSet();
+  }
+
+  // Actions called by UI
+
+  click_edit_winner(): void {
+    this.showSelectWinner = !this.showSelectWinner;
+  }
+
+  inputChanged(): void {
+    if (this.notEnoughInputForEnfrentamiento()) {
+      this.clearDataEnfrentamiento();
+    } else {
+      this.updateDataEnfrentamiento();
+    }
+  }
+
+  /////
+  // Other functions
+  /////
+
+  private notEnoughInputForEnfrentamiento(): boolean {
     return this.inputGolesA == undefined || this.inputGolesB == undefined;
   }
 
-  click_save_data(){
-    if (this.inputFaltasA == undefined){
-      this.inputFaltasA = 0;
+  private updateDataEnfrentamiento(): void {
+    if (this.enfrentamiento.isResultadosSet()) {
+      this.enfrentamiento.unsetResultado();
     }
-    if (this.inputFaltasB == undefined){
-      this.inputFaltasB = 0;
-    }
+    this.saveDataEnfrentamiento();
+  }
 
-    this.enfrentamiento.setResultados(this.inputGolesA, this.inputFaltasA, this.inputGolesB, this.inputFaltasB);
+  private saveDataEnfrentamiento() {
+    let faltasA = this.inputFaltasA || 0;
+    let faltasB = this.inputFaltasB || 0;
+
+    this.enfrentamiento.setResultados(this.inputGolesA, faltasA, this.inputGolesB, faltasB);
     if (this.winner_select_val == SelectWinner.EQUIPOA) {
       this.enfrentamiento.setForcedGanadorA();
     } else if (this.winner_select_val == SelectWinner.EQUIPOB) {
@@ -118,19 +151,9 @@ export class MatchHappeningComponent implements OnInit {
     this.callParentClickedSaveDataEvent();
   }
 
-  click_edit_again(){
-    this.inputGolesA = this.enfrentamiento.golesA;
-    this.inputGolesB = this.enfrentamiento.golesB;
-    this.inputFaltasA = this.enfrentamiento.faltasA;
-    this.inputFaltasB = this.enfrentamiento.faltasB;
+  private clearDataEnfrentamiento() {
     this.enfrentamiento.unsetResultado();
+    this.callParentClickedSaveDataEvent();
   }
 
-}
-
-enum SelectWinner{
-  AUTOMATICO,
-  EQUIPOA,
-  EQUIPOB,
-  EMPATE
 }

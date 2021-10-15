@@ -45,7 +45,6 @@ export class EquipoEnfrentamientosPage implements OnInit {
       this.equiposSub.unsubscribe();
     this.equiposSub = this.dataService.equipos.subscribe((valor)=>{
       this.equipos = valor;
-      console.log(this.teamname);
       this.equipo = this.equipos.find((e) => {
         return e.getNombre() == this.teamname;
       });

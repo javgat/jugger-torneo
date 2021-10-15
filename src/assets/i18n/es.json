@@ -30,5 +30,13 @@
 	"faltas_descalificado_desc": "Número de faltas para ser descalificado",
 	"faltas_perder_partido_desc": "Número de faltas para perder un partido",
 	"repeated_names_err_msg": "Los nombres de los equipos no pueden repetirse",
-	"enfrentamientos": "Enfrentamientos"
+	"enfrentamientos": "Enfrentamientos",
+	"add": "Añadir",
+	"ranking_help": "Clasificación > Ayuda",
+	"ranking_help_position": "Posición del equipo en la clasificación",
+	"ranking_help_team": "Nombre del equipo",
+	"ranking_help_points": "Puntos",
+	"ranking_help_faults": "Faltas cometidas",
+	"ranking_help_goal_average": "Gol average",
+	"ranking_help_wdl": "Número de victorias / Número de empates / Número de derrotas"
 }

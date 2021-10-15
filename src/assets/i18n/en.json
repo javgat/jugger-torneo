@@ -9,7 +9,7 @@
 	"winner": "Winner",
 	"tie": "Draw",
 	"goals": "Points",
-	"faults": "Faults",
+	"faults": "Fouls",
 	"automatic": "Automatic",
 	"save": "Save",
 	"edit": "Edit",
@@ -27,8 +27,16 @@
 	"goals_against_ranking": "PA",
 	"faults_ranking": "F",
 	"disqualified_ranking": "D",
-	"faltas_descalificado_desc": "Number of faults for disqualifying a team",
-	"faltas_perder_partido_desc": "Number of faults for losing a match",
+	"faltas_descalificado_desc": "Number of fouls for disqualifying a team",
+	"faltas_perder_partido_desc": "Number of fouls for losing a match",
 	"repeated_names_err_msg": "Teamnames can't be repeated",
-	"enfrentamientos": "Matches"
+	"enfrentamientos": "Matches",
+	"add": "Add",
+	"ranking_help": "Ranking > Help",
+	"ranking_help_position": "Team Position within the ranking",
+	"ranking_help_team": "Team name",
+	"ranking_help_points": "Points",
+	"ranking_help_faults": "Fouls commited",
+	"ranking_help_goal_average": "Goal average",
+	"ranking_help_wdl": "Number of wins / Number of draws / Number of loses"
 }

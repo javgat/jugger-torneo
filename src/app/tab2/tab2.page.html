@@ -3,16 +3,15 @@
     <ion-title translate>
       ranking
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/ranking-help']">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large" translate>ranking</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-list>
     <ion-item>
       <ion-label>

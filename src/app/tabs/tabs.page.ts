@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
 import { StorageService } from '../services/storage.service';
 import { TranslatorService } from '../services/translator.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -17,7 +18,7 @@ export class TabsPage {
   subSub: Subscription;
 
   constructor(private translator: TranslatorService, private dataService: DataService, private router: Router,
-      private route: ActivatedRoute, private storageService: StorageService) {
+      private route: ActivatedRoute, private storageService: StorageService, private platform: Platform) {
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -49,4 +50,17 @@ export class TabsPage {
     }
   }
 
+  subBack: Subscription;
+
+  ionViewDidEnter() {
+    this.subBack = this.platform.backButton.subscribeWithPriority(9999, () => {
+      // do nothing
+    });
+  }
+
+  ionViewWillLeave() {
+    if(this.subBack != undefined){
+      this.subBack.unsubscribe();
+    }
+  }
 }

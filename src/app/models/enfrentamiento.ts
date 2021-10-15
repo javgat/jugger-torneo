@@ -12,6 +12,9 @@ export interface EnfrentamientoJSON {
 
 	resultadoGanador: GanadorPartido;
 
+	// Optional so it is compatible with versions <= v1.1.0
+	selectWinner?: SelectWinner;
+
 	faltas_descalificado_torneo: number;
 	faltas_perder_partido: number;
 
@@ -34,6 +37,8 @@ export class Enfrentamiento {
 
 	resultadoGanador: GanadorPartido;
 
+	selectWinner: SelectWinner;
+
 	private faltas_descalificado_torneo: number;
 	private faltas_perder_partido: number;
 
@@ -49,6 +54,7 @@ export class Enfrentamiento {
 		this.faltasB = 0;
 		this.resultadoGanador = GanadorPartido.EMPATE;
 		this.resultadosWritten = false;
+		this.selectWinner = SelectWinner.AUTOMATICO;
 
 		this.faltas_descalificado_torneo = faltas_descalificado_torneo;
 		this.faltas_perder_partido = faltas_perder_partido;
@@ -66,6 +72,7 @@ export class Enfrentamiento {
 			faltasB: this.faltasB,
 
 			resultadoGanador: this.resultadoGanador,
+			selectWinner: this.selectWinner,
 
 			faltas_descalificado_torneo: this.faltas_descalificado_torneo,
 			faltas_perder_partido: this.faltas_perder_partido,
@@ -85,6 +92,7 @@ export class Enfrentamiento {
 		enf.golesB = enfJs.golesB;
 		enf.faltasB = enfJs.faltasB;
 		enf.resultadoGanador = enfJs.resultadoGanador;
+		enf.selectWinner = enfJs.selectWinner || SelectWinner.AUTOMATICO;
 		enf.faltas_descalificado_torneo = enfJs.faltas_descalificado_torneo;
 		enf.faltas_perder_partido = enfJs.faltas_perder_partido;
 		enf.resultadosWritten = enfJs.resultadosWritten;
@@ -98,6 +106,7 @@ export class Enfrentamiento {
 		this.golesB = golesB;
 		this.faltasB = faltasB;
 		this.resultadosWritten = true;
+		this.selectWinner = SelectWinner.AUTOMATICO;
 		this.calculaGanador();
 	}
 
@@ -106,14 +115,17 @@ export class Enfrentamiento {
 	}
 
 	setForcedGanadorA() {
+		this.selectWinner = SelectWinner.EQUIPOA;
 		this.setForcedGanador(GanadorPartido.GANAA);
 	}
 
 	setForcedGanadorB() {
+		this.selectWinner = SelectWinner.EQUIPOB;
 		this.setForcedGanador(GanadorPartido.GANAB);
 	}
 
 	setForcedEmpate() {
+		this.selectWinner = SelectWinner.EMPATE;
 		this.setForcedGanador(GanadorPartido.EMPATE);
 	}
 
@@ -332,6 +344,13 @@ export class Enfrentamiento {
 		}
 		return enfs;
 	}
+}
+
+export enum SelectWinner{
+	AUTOMATICO,
+	EQUIPOA,
+	EQUIPOB,
+	EMPATE
 }
 
 enum GanadorPartido {

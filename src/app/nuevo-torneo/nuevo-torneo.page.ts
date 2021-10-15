@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { IModifiedEntrentamiento } from '../children/match-created/match-created-typings';
 import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from '../models/constants';
 import { Enfrentamiento } from '../models/enfrentamiento';
 import { Equipo } from '../models/equipo';
@@ -109,6 +110,21 @@ export class NuevoTorneoPage implements OnInit {
       return (v.equipoA.getNombre() != enf.equipoA.getNombre() ||
       v.equipoB.getNombre() != enf.equipoB.getNombre());
     });
+  }
+
+  modify_match(modEnf: IModifiedEntrentamiento){
+    let oldEnf = modEnf.enfrentamiento;
+    this.enfrentamientos = this.enfrentamientos.map( (enf) => {
+      if (enf.equipoA.getNombre() == oldEnf.equipoA.getNombre() &&
+      enf.equipoB.getNombre() == oldEnf.equipoB.getNombre()){
+        return modEnf.newEnfrentamiento;
+      }
+      return enf;
+    });
+  }
+
+  indiceDe(enf: Enfrentamiento, enfrentamientos: Enfrentamiento[]){
+    return enfrentamientos.indexOf(enf) + 1;
   }
 
 }

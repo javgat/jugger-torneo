@@ -7,19 +7,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large" translate>options</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-item>
     <ion-label>
       <span translate>reset</span>
-      <ion-icon slot="start" name="trash-outline"></ion-icon>
     </ion-label>
     <ion-select interface="action-sheet" (ionChange)="select_delete_pressed()">
       <ion-select-option value="delete" translate>delete</ion-select-option>
     </ion-select>
+    <ion-icon name="trash-outline"></ion-icon>
   </ion-item>
 </ion-content>
