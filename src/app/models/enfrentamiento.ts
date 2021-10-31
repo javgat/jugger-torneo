@@ -323,6 +323,14 @@ export class Enfrentamiento {
 		return newEnfs;
 	}
 
+	private static matchGenAllowRepetitionOrdered(eqs: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+		let enfs: Enfrentamiento[] = [];
+		for(let i = 0; i < (eqs.length-1); i = i + 2){
+			enfs.push(new Enfrentamiento(eqs[i], eqs[i+1], faltas_descalificado, faltas_perder_partido));
+		}
+		return enfs;
+	}
+
 	static matchGenBasic(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
 		let clonEqs = [];
 		for (let eq of equipos) {
@@ -342,6 +350,16 @@ export class Enfrentamiento {
 		if (enfs.length == 0){
 			enfs = this.matchGenBasic(equipos, faltas_descalificado, faltas_perder_partido);
 		}
+		return enfs;
+	}
+
+	static matchGenAllowRepetition(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+		let clonEqs = [];
+		for (let eq of equipos) {
+			clonEqs.push(eq);
+		}
+		Equipo.sortTeamsRanking(clonEqs);
+		let enfs = this.matchGenAllowRepetitionOrdered(clonEqs, faltas_descalificado, faltas_perder_partido);
 		return enfs;
 	}
 }

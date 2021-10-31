@@ -26,11 +26,13 @@ export class NuevoTorneoPage implements OnInit {
   enfrentamientos: Enfrentamiento[];
   faltas_descalificado_torneo: number;
   faltas_perder_partido: number;
+  avoid_repeated_matches: boolean;
 
   constructor(private translator: TranslatorService, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.enfrentamientos = [];
     this.faltas_descalificado_torneo = DEFAULT_FALTAS_DESCALIFICADO_TORNEO;
     this.faltas_perder_partido = DEFAULT_FALTAS_PERDER_PARTIDO;
+    this.avoid_repeated_matches = true;
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -75,6 +77,7 @@ export class NuevoTorneoPage implements OnInit {
     }
     this.dataService.setFaltasDescalificado(this.faltas_descalificado_torneo);
     this.dataService.setFaltasPerderPartido(this.faltas_perder_partido);
+    this.dataService.setAvoidRepeatedMatches(this.avoid_repeated_matches);
     this.dataService.startTorneo(this.enfrentamientos);
   }
 

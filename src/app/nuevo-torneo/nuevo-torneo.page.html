@@ -15,6 +15,10 @@
     <ion-label text-wrap translate>faltas_perder_partido_desc</ion-label>
     <ion-input [(ngModel)]="faltas_perder_partido" type="number" min="1"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label text-wrap translate>avoid_repeated_matches</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="avoid_repeated_matches"></ion-checkbox>
+  </ion-item>
   <ion-item *ngIf="isRepeatedNameEquipo()">
     <ion-badge text-wrap color="danger" translate>repeated_names_err_msg</ion-badge>
   </ion-item>

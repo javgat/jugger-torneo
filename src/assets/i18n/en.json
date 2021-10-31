@@ -38,5 +38,6 @@
 	"ranking_help_points": "Points",
 	"ranking_help_faults": "Fouls commited",
 	"ranking_help_goal_average": "Goal average",
-	"ranking_help_wdl": "Number of wins / Number of draws / Number of loses"
+	"ranking_help_wdl": "Number of wins / Number of draws / Number of loses",
+	"avoid_repeated_matches": "Avoid repeated matches"
 }

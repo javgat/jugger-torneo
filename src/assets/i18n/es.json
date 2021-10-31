@@ -38,5 +38,6 @@
 	"ranking_help_points": "Puntos",
 	"ranking_help_faults": "Faltas cometidas",
 	"ranking_help_goal_average": "Gol average",
-	"ranking_help_wdl": "Número de victorias / Número de empates / Número de derrotas"
+	"ranking_help_wdl": "Número de victorias / Número de empates / Número de derrotas",
+	"avoid_repeated_matches": "Evitar repeticiones de enfrentamientos"
 }
