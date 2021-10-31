@@ -195,13 +195,19 @@ export class Equipo {
 				if (golaver == ogola) {
 					let enfs = this.getEnfrentamientosAgainst(other);
 					if (enfs.length > 0) {
-						if (enfs[0].isEmpate()) {
-							return 0;
-						} else if (enfs[0].isEquipoAWinner()) {
-							return (enfs[0].equipoA == this) ? 1 : -1;
-						} else {
-							return (enfs[0].equipoA == this) ? -1 : 1;
-						}
+						let sumVics = 0;
+						enfs.forEach((enf) => {
+							let sumandoVicEnf: number;
+							if (enf.isEmpate()) {
+								sumandoVicEnf = 0;
+							} else if (enf.isEquipoAWinner()) {
+								sumandoVicEnf = (enf.equipoA == this) ? 1 : -1;
+							} else {
+								sumandoVicEnf = (enf.equipoA == this) ? -1 : 1;
+							}
+							sumVics += sumandoVicEnf;
+						});
+						return sumVics;
 					}
 					return 0;
 				}
