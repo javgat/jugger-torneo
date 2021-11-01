@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'ranking-help',
     loadChildren: () => import('./ranking-help/ranking-help.module').then( m => m.RankingHelpPageModule)
+  },
+  {
+    path: 'tiebreaking-criteria',
+    loadChildren: () => import('./tiebreaking-criteria/tiebreaking-criteria.module').then( m => m.TiebreakingCriteriaPageModule)
   }
 ];
 @NgModule({

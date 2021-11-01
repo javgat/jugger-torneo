@@ -174,7 +174,7 @@ export class Equipo {
 	 * Compares to other Equipo. this - other.
 	 * Negative if this is smaller. Smaller means goes last.
 	 */
-	compareTo(other: Equipo): number {
+	compareTo(other: Equipo, tiebreakingCriteria: TiebreakingCriterion[]): number {
 		if (this.isDescalificado() && other.isDescalificado()) {
 			return 0;
 		}
@@ -187,42 +187,72 @@ export class Equipo {
 		let puntuacion = this.getPuntuacion();
 		let opunt = other.getPuntuacion();
 		if (puntuacion == opunt) {
-			let faltas = this.getFaltas();
-			let ofalts = other.getFaltas();
-			if (faltas == ofalts) {
-				let golaver = this.getGolAverage();
-				let ogola = other.getGolAverage();
-				if (golaver == ogola) {
-					let enfs = this.getEnfrentamientosAgainst(other);
-					if (enfs.length > 0) {
-						let sumVics = 0;
-						enfs.forEach((enf) => {
-							let sumandoVicEnf: number;
-							if (enf.isEmpate()) {
-								sumandoVicEnf = 0;
-							} else if (enf.isEquipoAWinner()) {
-								sumandoVicEnf = (enf.equipoA == this) ? 1 : -1;
-							} else {
-								sumandoVicEnf = (enf.equipoA == this) ? -1 : 1;
-							}
-							sumVics += sumandoVicEnf;
-						});
-						return sumVics;
+			for (let tc of tiebreakingCriteria) {
+				let difVal;
+				switch(tc) {
+					case TiebreakingCriterion.FALTAS: {
+						difVal = Equipo.tieBreakFaltas(this, other);
+						break;
 					}
-					return 0;
+					case TiebreakingCriterion.GOLAVERAGE: {
+						difVal = Equipo.tieBreakGolaverage(this, other);
+						break;
+					}	
+					case TiebreakingCriterion.ENFRENTAMIENTOSAGAINST: {
+						difVal = Equipo.tieBreakEnfrentamientosAgainst(this, other);
+						break;
+					}
+					default: {
+						difVal = 0;
+						break;
+					}
 				}
-				return this.getGolAverage() - other.getGolAverage();
+				if (difVal != 0){
+					return difVal;
+				}
 			}
-			return ofalts - faltas; // less faltas => first
+			return 0;
 		} else {
 			return puntuacion - opunt;
 		}
 	}
 
-	static sortTeamsRanking(eqs: Equipo[]) {
+	static sortTeamsRanking(eqs: Equipo[], tiebreakingCriteria: TiebreakingCriterion[]) {
 		eqs.sort((ea, eb) => {
-			return eb.compareTo(ea); // reverse order, so large goes first
+			return eb.compareTo(ea, tiebreakingCriteria); // reverse order, so large goes first
 		});
+	}
+
+	private static tieBreakFaltas(that: Equipo, other: Equipo) {
+		let faltas = that.getFaltas();
+		let ofalts = other.getFaltas();
+		return ofalts - faltas; // less faltas => first
+	}
+
+	private static tieBreakGolaverage(that: Equipo, other: Equipo) {
+		let golaver = that.getGolAverage();
+		let ogola = other.getGolAverage();
+		return golaver - ogola;
+	}
+
+	private static tieBreakEnfrentamientosAgainst(that: Equipo, other: Equipo) {
+		let enfs = that.getEnfrentamientosAgainst(other);
+		if (enfs.length > 0) {
+			let sumVics = 0;
+			enfs.forEach((enf) => {
+				let sumandoVicEnf: number;
+				if (enf.isEmpate()) {
+					sumandoVicEnf = 0;
+				} else if (enf.isEquipoAWinner()) {
+					sumandoVicEnf = (enf.equipoA == that) ? 1 : -1;
+				} else {
+					sumandoVicEnf = (enf.equipoA == that) ? -1 : 1;
+				}
+				sumVics += sumandoVicEnf;
+			});
+			return sumVics;
+		}
+		return 0;
 	}
 }
 
@@ -230,4 +260,10 @@ export enum ResultadoPartido {
 	VICTORIA,
 	EMPATE,
 	DERROTA
+}
+
+export enum TiebreakingCriterion {
+	FALTAS,
+	GOLAVERAGE,
+	ENFRENTAMIENTOSAGAINST
 }

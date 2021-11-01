@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title translate>
+      tiebreaking_criteria
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-list-header><strong translate>tiebreaking_criteria_enabled</strong></ion-list-header>
+    <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+      <div *ngFor="let tieb of tiebreaking_list">
+        <ion-item *ngIf="tieb.isCriterion()">
+          <ion-label text-wrap translate>
+            {{getNameOfCriterion(tieb.getCriterion())}}
+          </ion-label>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item>
+        <ion-list-header *ngIf="!tieb.isCriterion()">
+          <strong text-wrap translate>{{tieb.getSeparatorString()}}</strong>
+        </ion-list-header>
+      </div>
+    </ion-reorder-group>
+  </ion-list>
+</ion-content>

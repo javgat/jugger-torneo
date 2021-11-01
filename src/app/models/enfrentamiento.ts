@@ -1,4 +1,4 @@
-import { Equipo, ResultadoPartido } from "./equipo";
+import { Equipo, ResultadoPartido, TiebreakingCriterion } from "./equipo";
 
 export interface EnfrentamientoJSON {
 	nombreEquipoA: string;
@@ -331,34 +331,34 @@ export class Enfrentamiento {
 		return enfs;
 	}
 
-	static matchGenBasic(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+	static matchGenBasic(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number, tiebreakingCriteria: TiebreakingCriterion[]): Enfrentamiento[] {
 		let clonEqs = [];
 		for (let eq of equipos) {
 			clonEqs.push(eq);
 		}
-		Equipo.sortTeamsRanking(clonEqs);
+		Equipo.sortTeamsRanking(clonEqs, tiebreakingCriteria);
 		return this.matchGenBasicOrdered(clonEqs, faltas_descalificado, faltas_perder_partido);
 	}
 
-	static matchGenComplex(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+	static matchGenComplex(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number, tiebreakingCriteria: TiebreakingCriterion[]): Enfrentamiento[] {
 		let clonEqs = [];
 		for (let eq of equipos) {
 			clonEqs.push(eq);
 		}
-		Equipo.sortTeamsRanking(clonEqs);
+		Equipo.sortTeamsRanking(clonEqs, tiebreakingCriteria);
 		let enfs = this.matchGenComplexOrdered(clonEqs, faltas_descalificado, faltas_perder_partido);
 		if (enfs.length == 0){
-			enfs = this.matchGenBasic(equipos, faltas_descalificado, faltas_perder_partido);
+			enfs = this.matchGenBasic(equipos, faltas_descalificado, faltas_perder_partido, tiebreakingCriteria);
 		}
 		return enfs;
 	}
 
-	static matchGenAllowRepetition(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number): Enfrentamiento[] {
+	static matchGenAllowRepetition(equipos: Equipo[], faltas_descalificado: number, faltas_perder_partido: number, tiebreakingCriteria: TiebreakingCriterion[]): Enfrentamiento[] {
 		let clonEqs = [];
 		for (let eq of equipos) {
 			clonEqs.push(eq);
 		}
-		Equipo.sortTeamsRanking(clonEqs);
+		Equipo.sortTeamsRanking(clonEqs, tiebreakingCriteria);
 		let enfs = this.matchGenAllowRepetitionOrdered(clonEqs, faltas_descalificado, faltas_perder_partido);
 		return enfs;
 	}

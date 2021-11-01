@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IModifiedEntrentamiento } from '../children/match-created/match-created-typings';
-import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from '../models/constants';
+import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO, DEFAULT_TIEBREAKING_CRITERIA } from '../models/constants';
 import { Enfrentamiento } from '../models/enfrentamiento';
-import { Equipo } from '../models/equipo';
+import { Equipo, TiebreakingCriterion } from '../models/equipo';
 import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
@@ -22,16 +22,19 @@ export class NuevoTorneoPage implements OnInit {
   torneoStarted: boolean;
   torneoStartedSub: Subscription;
   enfrentamientosSub: Subscription;
+  tiebreakingCSub: Subscription;
   subSub: Subscription;
   enfrentamientos: Enfrentamiento[];
   faltas_descalificado_torneo: number;
   faltas_perder_partido: number;
   avoid_repeated_matches: boolean;
+  tiebreaking_criteria: TiebreakingCriterion[];
 
   constructor(private translator: TranslatorService, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.enfrentamientos = [];
     this.faltas_descalificado_torneo = DEFAULT_FALTAS_DESCALIFICADO_TORNEO;
     this.faltas_perder_partido = DEFAULT_FALTAS_PERDER_PARTIDO;
+    this.tiebreaking_criteria = DEFAULT_TIEBREAKING_CRITERIA;
     this.avoid_repeated_matches = true;
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
@@ -45,6 +48,7 @@ export class NuevoTorneoPage implements OnInit {
   ngOnDestroy() {
     this.torneoStartedSub.unsubscribe();
     this.enfrentamientosSub.unsubscribe();
+    this.tiebreakingCSub.unsubscribe();
     this.subSub.unsubscribe();
   }
 
@@ -59,6 +63,9 @@ export class NuevoTorneoPage implements OnInit {
     });
     this.enfrentamientosSub = this.dataService.enfrentamientos.subscribe((valor)=>{
       this.enfrentamientos = valor;
+    });
+    this.tiebreakingCSub = this.dataService.tiebreaking_criteria_UI.subscribe((valor)=>{
+      this.tiebreaking_criteria = valor;
     });
   }
 
@@ -78,6 +85,7 @@ export class NuevoTorneoPage implements OnInit {
     this.dataService.setFaltasDescalificado(this.faltas_descalificado_torneo);
     this.dataService.setFaltasPerderPartido(this.faltas_perder_partido);
     this.dataService.setAvoidRepeatedMatches(this.avoid_repeated_matches);
+    this.dataService.setTiebreakingCriteria(this.tiebreaking_criteria);
     this.dataService.startTorneo(this.enfrentamientos);
   }
 

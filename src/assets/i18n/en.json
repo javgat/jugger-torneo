@@ -39,5 +39,12 @@
 	"ranking_help_faults": "Fouls commited",
 	"ranking_help_goal_average": "Goal average",
 	"ranking_help_wdl": "Number of wins / Number of draws / Number of loses",
-	"avoid_repeated_matches": "Avoid repeated matches"
+	"avoid_repeated_matches": "Avoid repeated matches",
+	"tiebreaking_criteria": "Tie-breaking criteria",
+	"criterion_faults": "Fouls",
+	"criterion_golaverage": "Goal average",
+	"criterion_enfrentamientos_against": "Previous matches against same team",
+	"tiebreaking_criteria_enabled": "Enabled criteria",
+	"tiebreaking_criteria_disabled": "Disabled criteria",
+	"tiebreaking_information": "Move the criteria to modify their priority (their priority is higher the higher they are on the list), or disable them completely"
 }

@@ -39,5 +39,12 @@
 	"ranking_help_faults": "Faltas cometidas",
 	"ranking_help_goal_average": "Gol average",
 	"ranking_help_wdl": "Número de victorias / Número de empates / Número de derrotas",
-	"avoid_repeated_matches": "Evitar repeticiones de enfrentamientos"
+	"avoid_repeated_matches": "Evitar repeticiones de enfrentamientos",
+	"tiebreaking_criteria": "Criterios de desempate",
+	"criterion_faults": "Faltas",
+	"criterion_golaverage": "Gol average",
+	"criterion_enfrentamientos_against": "Enfrentamientos previos entre sí",
+	"tiebreaking_criteria_enabled": "Criterios activos",
+	"tiebreaking_criteria_disabled": "Criterios inactivos",
+	"tiebreaking_information": "Mueve los criterios para modificar su prioridad (cuanto más arriba, más prioridad tienen), o deshabilítalos completamente"
 }
