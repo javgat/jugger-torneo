@@ -170,10 +170,17 @@ export class Equipo {
 		return this.enfrentamientos.length;
 	}
 
+	/**
+	 * Raw score following Buchholz system
+	 */
 	getRawBuchholz(): number {
 		return this.victorias * 1 + this.empates * 0.5;
 	}
 
+	/**
+	 * Buchholz score without multiplying by the raw buchholz score, because it will
+	 * be used for tiebreaking
+	 */
 	getTiebreakingBuchholzValue(): number {
 		let sumBul = 0;
 		for(let enf of this.enfrentamientos) {
@@ -188,6 +195,10 @@ export class Equipo {
 		return sumBul;
 	}
 
+	/**
+	 * Median-Buchholz score without multiplying by the raw buchholz score, because it will
+	 * be used for tiebreaking. Ignores greatest and smallest value.
+	 */
 	getTiebreakingMedianBuchholzValue(): number {
 		let sumBul = 0;
 		if (this.enfrentamientos.length > 2){
