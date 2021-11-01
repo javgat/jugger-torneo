@@ -12,7 +12,7 @@ Using Ionic 5 with Angular. Built for Android.
 
 - [X] Let the user choose at the begining if they allow repetition of matches.
 - [X] Allow selection of the tie-breaking criteria used and the priority among them.
-- [ ] Added Buchholz system as another tie-breaking criterion.
+- [X] Added Buchholz system as another tie-breaking criterion.
 
 ### Version 1.2
 

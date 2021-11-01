@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'tiebreaking-criteria',
     loadChildren: () => import('./tiebreaking-criteria/tiebreaking-criteria.module').then( m => m.TiebreakingCriteriaPageModule)
+  },
+  {
+    path: 'tiebreaking-c-help',
+    loadChildren: () => import('./tiebreaking-c-help/tiebreaking-c-help.module').then( m => m.TiebreakingCHelpPageModule)
   }
 ];
 @NgModule({
