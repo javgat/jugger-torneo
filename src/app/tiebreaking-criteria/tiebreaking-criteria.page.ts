@@ -82,6 +82,10 @@ export class TiebreakingCriteriaPage implements OnInit {
         return 'criterion_golaverage';
       case TiebreakingCriterion.ENFRENTAMIENTOSAGAINST:
         return 'criterion_enfrentamientos_against';
+      case TiebreakingCriterion.BUCHHOLZ:
+        return 'criterion_buchholz';
+      case TiebreakingCriterion.MEDIANBUCHHOLZ:
+        return 'criterion_median_buchholz';
       default:
         return '';
     }

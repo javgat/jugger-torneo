@@ -44,6 +44,8 @@
 	"criterion_faults": "Faltas",
 	"criterion_golaverage": "Gol average",
 	"criterion_enfrentamientos_against": "Enfrentamientos previos entre sí",
+	"criterion_buchholz": "Buchholz",
+	"criterion_median_buchholz": "Buchholz-Mediana",
 	"tiebreaking_criteria_enabled": "Criterios activos",
 	"tiebreaking_criteria_disabled": "Criterios inactivos",
 	"tiebreaking_information": "Mueve los criterios para modificar su prioridad (cuanto más arriba, más prioridad tienen), o deshabilítalos completamente"

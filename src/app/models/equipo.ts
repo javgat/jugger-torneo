@@ -170,6 +170,51 @@ export class Equipo {
 		return this.enfrentamientos.length;
 	}
 
+	getRawBuchholz(): number {
+		return this.victorias * 1 + this.empates * 0.5;
+	}
+
+	getTiebreakingBuchholzValue(): number {
+		let sumBul = 0;
+		for(let enf of this.enfrentamientos) {
+			let otherTeam: Equipo;
+			if (enf.equipoA == this) {
+				otherTeam = enf.equipoB;
+			} else {
+				otherTeam = enf.equipoA;
+			}
+			sumBul += otherTeam.getRawBuchholz();
+		}
+		return sumBul;
+	}
+
+	getTiebreakingMedianBuchholzValue(): number {
+		let sumBul = 0;
+		if (this.enfrentamientos.length > 2){
+			let min: number;
+			let max = 0;
+			for(let enf of this.enfrentamientos) {
+				let otherTeam: Equipo;
+				if (enf.equipoA == this) {
+					otherTeam = enf.equipoB;
+				} else {
+					otherTeam = enf.equipoA;
+				}
+				let newBuchholzAddition = otherTeam.getRawBuchholz();
+				if (max < newBuchholzAddition){
+					max = newBuchholzAddition;
+				}
+				if (min == undefined || min > newBuchholzAddition) {
+					min = newBuchholzAddition
+				}
+				sumBul += newBuchholzAddition;
+			}
+			sumBul -= min;
+			sumBul -= max;
+		}
+		return sumBul;
+	}
+
 	/**
 	 * Compares to other Equipo. this - other.
 	 * Negative if this is smaller. Smaller means goes last.
@@ -200,6 +245,14 @@ export class Equipo {
 					}	
 					case TiebreakingCriterion.ENFRENTAMIENTOSAGAINST: {
 						difVal = Equipo.tieBreakEnfrentamientosAgainst(this, other);
+						break;
+					}
+					case TiebreakingCriterion.BUCHHOLZ: {
+						difVal = Equipo.tieBreakBuchholz(this, other);
+						break;
+					}
+					case TiebreakingCriterion.MEDIANBUCHHOLZ: {
+						difVal = Equipo.tieBreakMedianBuchholz(this, other);
 						break;
 					}
 					default: {
@@ -254,6 +307,18 @@ export class Equipo {
 		}
 		return 0;
 	}
+
+	private static tieBreakBuchholz(that: Equipo, other: Equipo) {
+		let buch = that.getTiebreakingBuchholzValue();
+		let obuch = other.getTiebreakingBuchholzValue();
+		return buch - obuch;
+	}
+
+	private static tieBreakMedianBuchholz(that: Equipo, other: Equipo) {
+		let buch = that.getTiebreakingMedianBuchholzValue();
+		let obuch = other.getTiebreakingMedianBuchholzValue();
+		return buch - obuch;
+	}
 }
 
 export enum ResultadoPartido {
@@ -262,8 +327,12 @@ export enum ResultadoPartido {
 	DERROTA
 }
 
+// When adding new TiebreakingCriterion make sure to add them to the array ALL_TIEBREAKING_CRITERIA
+// in models/constants.ts
 export enum TiebreakingCriterion {
 	FALTAS,
 	GOLAVERAGE,
-	ENFRENTAMIENTOSAGAINST
+	ENFRENTAMIENTOSAGAINST,
+	BUCHHOLZ,
+	MEDIANBUCHHOLZ
 }

@@ -15,4 +15,5 @@ export const DEFAULT_TIEBREAKING_CRITERIA: TiebreakingCriterion[] =
 	[TiebreakingCriterion.FALTAS, TiebreakingCriterion.GOLAVERAGE, TiebreakingCriterion.ENFRENTAMIENTOSAGAINST];
 // List with all possible options for tiebreaking criteria in case of tie in the ranking
 export const ALL_TIEBREAKING_CRITERIA: TiebreakingCriterion[] =
-[TiebreakingCriterion.FALTAS, TiebreakingCriterion.GOLAVERAGE, TiebreakingCriterion.ENFRENTAMIENTOSAGAINST];
+	[TiebreakingCriterion.FALTAS, TiebreakingCriterion.GOLAVERAGE, TiebreakingCriterion.ENFRENTAMIENTOSAGAINST,
+		TiebreakingCriterion.BUCHHOLZ, TiebreakingCriterion.MEDIANBUCHHOLZ];
