@@ -48,7 +48,7 @@
 	"criterion_median_buchholz": "Median-Buchholz",
 	"tiebreaking_criteria_enabled": "Enabled criteria",
 	"tiebreaking_criteria_disabled": "Disabled criteria",
-	"tiebreaking_information": "Move the criteria to modify their priority (their priority is higher the higher they are on the list), or disable them completely",
+	"tiebreaking_information": "Move the criteria to modify their priority (their priority is higher the higher they are on the list), or disable them completely.",
 	"buchholz_score": "Buchholz score",
 	"median_buchholz_score": "Median-Buchholz score",
 	"tiebreaking_c_help": "Tie-breaking > Help",

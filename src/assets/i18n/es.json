@@ -48,7 +48,7 @@
 	"criterion_median_buchholz": "Buchholz-Mediana",
 	"tiebreaking_criteria_enabled": "Criterios activos",
 	"tiebreaking_criteria_disabled": "Criterios inactivos",
-	"tiebreaking_information": "Mueve los criterios para modificar su prioridad (cuanto más arriba, más prioridad tienen), o deshabilítalos completamente",
+	"tiebreaking_information": "Mueve los criterios para modificar su prioridad (cuanto más arriba, más prioridad tienen), o deshabilítalos completamente.",
 	"buchholz_score": "Puntuación Buchholz",
 	"median_buchholz_score": "Puntuación Buchholz-Mediana",
 	"tiebreaking_c_help": "Desempate > Ayuda",

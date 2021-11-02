@@ -29,6 +29,7 @@ export class NuevoTorneoPage implements OnInit {
   faltas_perder_partido: number;
   avoid_repeated_matches: boolean;
   tiebreaking_criteria: TiebreakingCriterion[];
+  isShowingSettings: boolean;
 
   constructor(private translator: TranslatorService, private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     this.enfrentamientos = [];
@@ -36,6 +37,7 @@ export class NuevoTorneoPage implements OnInit {
     this.faltas_perder_partido = DEFAULT_FALTAS_PERDER_PARTIDO;
     this.tiebreaking_criteria = DEFAULT_TIEBREAKING_CRITERIA;
     this.avoid_repeated_matches = true;
+    this.isShowingSettings = false;
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -136,6 +138,14 @@ export class NuevoTorneoPage implements OnInit {
 
   indiceDe(enf: Enfrentamiento, enfrentamientos: Enfrentamiento[]){
     return enfrentamientos.indexOf(enf) + 1;
+  }
+
+  clickShowSettings() {
+    this.isShowingSettings = true;
+  }
+
+  clickStopShowingSettings() {
+    this.isShowingSettings = false;
   }
 
 }
