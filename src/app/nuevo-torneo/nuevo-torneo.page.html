@@ -7,21 +7,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item>
-    <ion-label text-wrap translate>faltas_descalificado_desc</ion-label>
-    <ion-input [(ngModel)]="faltas_descalificado_torneo" type="number" min="1"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label text-wrap translate>faltas_perder_partido_desc</ion-label>
-    <ion-input [(ngModel)]="faltas_perder_partido" type="number" min="1"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label text-wrap translate>avoid_repeated_matches</ion-label>
-    <ion-checkbox slot="end" [(ngModel)]="avoid_repeated_matches"></ion-checkbox>
-  </ion-item>
-  <ion-item *ngIf="isRepeatedNameEquipo()">
-    <ion-badge text-wrap color="danger" translate>repeated_names_err_msg</ion-badge>
-  </ion-item>
+  <div *ngIf="isShowingSettings">
+    <ion-item>
+      <ion-label text-wrap translate>faltas_descalificado_desc</ion-label>
+      <ion-input [(ngModel)]="faltas_descalificado_torneo" type="number" min="1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap translate>faltas_perder_partido_desc</ion-label>
+      <ion-input [(ngModel)]="faltas_perder_partido" type="number" min="1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap translate>avoid_repeated_matches</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="avoid_repeated_matches"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="isRepeatedNameEquipo()">
+      <ion-badge text-wrap color="danger" translate>repeated_names_err_msg</ion-badge>
+    </ion-item>
+    <ion-button color="tertiary" expand="block" [routerLink]="['/tiebreaking-criteria']"
+    class="ion-margin" translate>tiebreaking_criteria</ion-button>
+  </div>
+    <ion-item-divider>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button *ngIf="isShowingSettings" color="medium" (click)="clickStopShowingSettings()">
+              <ion-icon name="settings-outline"></ion-icon>
+              <ion-icon name="chevron-up-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="!isShowingSettings" color="medium" (click)="clickShowSettings()">
+              <ion-icon name="settings-outline"></ion-icon>
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-item-divider>
   <ion-button size="large" color="primary" expand="block" (click)="click_start_tournament()"
     [disabled]="start_tournament_disabled()" class="ion-margin" translate>start_tournament</ion-button>
   <app-match-created *ngFor="let enf of enfrentamientos" [enfrentamiento]="enf"

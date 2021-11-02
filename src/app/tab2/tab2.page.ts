@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Equipo } from '../models/equipo';
+import { DEFAULT_TIEBREAKING_CRITERIA } from '../models/constants';
+import { Equipo, TiebreakingCriterion } from '../models/equipo';
 import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
@@ -17,12 +18,15 @@ export class Tab2Page {
 
   equiposSub: Subscription;
   subSub: Subscription;
+  tiebreakingSub: Subscription;
 
   equipos: Equipo[];
+  tiebreaking_criteria: TiebreakingCriterion[];
 
   constructor(private translator: TranslatorService, private dataService: DataService,
     route: ActivatedRoute, private router: Router) {
     this.equipos = [];
+    this.tiebreaking_criteria = DEFAULT_TIEBREAKING_CRITERIA;
     this.subSub = route.params.subscribe(val => {
       this.startSubscriptions();
     });
@@ -35,6 +39,7 @@ export class Tab2Page {
   ngOnDestroy() {
     this.equiposSub.unsubscribe();
     this.subSub.unsubscribe();
+    this.tiebreakingSub.unsubscribe();
   }
 
   startSubscriptions() {
@@ -44,19 +49,22 @@ export class Tab2Page {
       this.equipos = valor;
       this.sortTeams();
     });
+    if (this.tiebreakingSub)
+      this.tiebreakingSub.unsubscribe();
+    this.tiebreakingSub = this.dataService.tiebreaking_criteria.subscribe((valor) => {
+      this.tiebreaking_criteria = valor;
+    });
   }
 
   sortTeams(){
-    this.equipos.sort((ea, eb) =>{
-      return eb.compareTo(ea); // reverse order, so large goes first
-    });
+    Equipo.sortTeamsRanking(this.equipos, this.tiebreaking_criteria);
   }
 
   getPosition(i: number): number{
     if (i == 0){
       return 1;
     }
-    if (this.equipos[i].compareTo(this.equipos[i-1]) == 0){
+    if (this.equipos[i].compareTo(this.equipos[i-1], this.tiebreaking_criteria) == 0){
       return this.getPosition(i-1);
     }
     return i+1;

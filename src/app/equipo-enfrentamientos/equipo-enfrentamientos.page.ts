@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DEFAULT_TIEBREAKING_CRITERIA } from '../models/constants';
 import { Enfrentamiento } from '../models/enfrentamiento';
-import { Equipo } from '../models/equipo';
+import { Equipo, TiebreakingCriterion } from '../models/equipo';
 import { DataService } from '../services/data.service';
 import { TranslatorService } from '../services/translator.service';
 
@@ -17,14 +18,21 @@ export class EquipoEnfrentamientosPage implements OnInit {
   equipos: Equipo[];
   teamname: string;
   isTeamLoaded: boolean;
+  hasBuchholz: boolean;
+  hasMedianBuchholz: boolean;
 
   equiposSub: Subscription;
   subSub: Subscription;
+  tiebreakingCSub: Subscription;
+  tiebreaking_criteria: TiebreakingCriterion[];
 
   constructor(private translator: TranslatorService, private dataService: DataService, route: ActivatedRoute) {
     this.equipos = [];
     this.teamname = '';
     this.isTeamLoaded = false;
+    this.hasBuchholz = false;
+    this.hasMedianBuchholz = false;
+    this.tiebreaking_criteria = DEFAULT_TIEBREAKING_CRITERIA;
     this.subSub = route.params.subscribe(params => {
       this.teamname = params['teamname']
       this.startSubscriptions();
@@ -37,6 +45,7 @@ export class EquipoEnfrentamientosPage implements OnInit {
 
   ngOnDestroy() {
     this.equiposSub.unsubscribe();
+    this.tiebreakingCSub.unsubscribe();
     this.subSub.unsubscribe();
   }
 
@@ -50,6 +59,13 @@ export class EquipoEnfrentamientosPage implements OnInit {
       });
       this.isTeamLoaded = this.equipo != undefined;
     });
+    if (this.tiebreakingCSub)
+      this.tiebreakingCSub.unsubscribe();
+    this.tiebreakingCSub = this.dataService.tiebreaking_criteria.subscribe((valor) => {
+      this.tiebreaking_criteria = valor;
+      this.hasBuchholz = this.tiebreaking_criteria.includes(TiebreakingCriterion.BUCHHOLZ);
+      this.hasMedianBuchholz = this.tiebreaking_criteria.includes(TiebreakingCriterion.MEDIANBUCHHOLZ);
+    });
   }
 
   getTeamName(): string{
@@ -58,6 +74,14 @@ export class EquipoEnfrentamientosPage implements OnInit {
 
   indiceDe(enf: Enfrentamiento, enfrentamientos: Enfrentamiento[]){
     return enfrentamientos.indexOf(enf) + 1;
+  }
+
+  getBuchholz(): number{
+    return this.equipo.getTiebreakingBuchholzValue();
+  }
+
+  getMedianBuchholz(): number{
+    return this.equipo.getTiebreakingMedianBuchholzValue();
   }
 
 }

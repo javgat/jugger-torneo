@@ -39,5 +39,22 @@
 	"ranking_help_faults": "Fouls commited",
 	"ranking_help_goal_average": "Goal average",
 	"ranking_help_wdl": "Number of wins / Number of draws / Number of loses",
-	"avoid_repeated_matches": "Avoid repeated matches"
+	"avoid_repeated_matches": "Avoid repeated matches",
+	"tiebreaking_criteria": "Tie-breaking criteria",
+	"criterion_faults": "Fouls",
+	"criterion_golaverage": "Goal average",
+	"criterion_enfrentamientos_against": "Previous matches against same team",
+	"criterion_buchholz": "Buchholz",
+	"criterion_median_buchholz": "Median-Buchholz",
+	"tiebreaking_criteria_enabled": "Enabled criteria",
+	"tiebreaking_criteria_disabled": "Disabled criteria",
+	"tiebreaking_information": "Move the criteria to modify their priority (their priority is higher the higher they are on the list), or disable them completely.",
+	"buchholz_score": "Buchholz score",
+	"median_buchholz_score": "Median-Buchholz score",
+	"tiebreaking_c_help": "Tie-breaking > Help",
+	"criterion_help_faults": "Team with less fouls wins",
+	"criterion_help_golaverage": "Team with greater goal average wins",
+	"criterion_help_enfrentamientos_against": "If the team has played against the other team before, the team which had won more times goes first",
+	"criterion_help_buchholz": "The team with greater tiebreaking Buchholz score wins. The tiebreaking Buchholz score is the sum of the raw Buchholz scores of the teams the team has played against. The raw Buchholz score is 1 x <number of wins> + 0.5 x <number of draws>.",
+	"criterion_help_median_buchholz": "The team with greater tiebreaking Median-Buchholz score wins. The tiebreaking Median-Buchholz score is calculated the same way the tiebreaking Buchholz score is calculated, but ignoring the greatest and the smallest raw scores of the obtained ones from the teams the team had played against."
 }
