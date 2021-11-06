@@ -1,6 +1,6 @@
 # jugger-torneo
 
-![Version 1.3.0-alpha](https://img.shields.io/badge/version-1.3.0--alpha-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Version 1.3.0](https://img.shields.io/badge/version-1.3.0-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 Swiss-system tournament ionic app tailored for Jugger players.
 
