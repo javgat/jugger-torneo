@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO } from '../models/constants';
+import { DEFAULT_AVOID_REPEATED_MATCHES, DEFAULT_FALTAS_DESCALIFICADO_TORNEO, DEFAULT_FALTAS_PERDER_PARTIDO, DEFAULT_TIEBREAKING_CRITERIA } from '../models/constants';
 import { Enfrentamiento, EnfrentamientoJSON } from '../models/enfrentamiento';
-import { Equipo, EquipoJSON } from '../models/equipo';
+import { Equipo, EquipoJSON, TiebreakingCriterion } from '../models/equipo';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -19,6 +19,8 @@ export class DataService {
   private stEquipos = 'equipos';
   private stFaltasDescalificado = 'faltas_descalificado';
   private stFaltasPerderPartido = 'faltas_perder_partido';
+  private stAvoidRepeatedMatches = 'avoid_repeated_matches';
+  private stTiebreakingCriteria = 'tiebreaking_criteria';
 
   constructor(private storageServ: StorageService) {
     storageServ.isInit.subscribe((started)=>{
@@ -36,14 +38,20 @@ export class DataService {
       this.setFaltasDescalificado(v as number);
       this.storageServ.getObject(this.stFaltasPerderPartido).then((v)=>{
         this.setFaltasPerderPartido(v as number);
-        this.storageServ.getObject(this.stEquipos).then((v)=>{
-          if (Array.isArray(v)){
-            let eqs: Equipo[] = Equipo.createFromJSONS(v as EquipoJSON[]);
-            this.setEquipos(eqs);
-            this.storageServ.getObject(this.stEnfrentamientos).then((v)=>{
-              this.setEnfrentamientosFromJSON(v as EnfrentamientoJSON[], eqs);
+        this.storageServ.getObject(this.stAvoidRepeatedMatches).then((v)=>{
+          this.setAvoidRepeatedMatches(v as boolean);
+          this.storageServ.getObject(this.stTiebreakingCriteria).then((v)=>{
+            this.setTiebreakingCriteria(v as TiebreakingCriterion[]);
+            this.storageServ.getObject(this.stEquipos).then((v)=>{
+              if (Array.isArray(v)){
+                let eqs: Equipo[] = Equipo.createFromJSONS(v as EquipoJSON[]);
+                this.setEquipos(eqs);
+                this.storageServ.getObject(this.stEnfrentamientos).then((v)=>{
+                  this.setEnfrentamientosFromJSON(v as EnfrentamientoJSON[], eqs);
+                });
+              }
             });
-          }
+          });
         });
       });
     });
@@ -146,5 +154,35 @@ export class DataService {
   setFaltasPerderPartido(n: number){
     this._faltas_perder_partido.next(n);
     this.storageServ.setObject(this.stFaltasPerderPartido, n);
+  }
+
+  /**
+   * AVOID_REPEATED_MATCHES
+   * Boolean value that is true in case that the pairing algorythm should avoid that teams repeat adversaries
+   */
+  private _avoid_repeated_matches = new BehaviorSubject<boolean>(DEFAULT_AVOID_REPEATED_MATCHES);
+  avoid_repeated_matches = this._avoid_repeated_matches.asObservable();
+
+  setAvoidRepeatedMatches(b: boolean){
+    this._avoid_repeated_matches.next(b);
+    this.storageServ.setObject(this.stAvoidRepeatedMatches, b);
+  }
+
+  /**
+   * TIEBREAKING_CRITERIA
+   */
+  private _tiebreaking_criteria = new BehaviorSubject<TiebreakingCriterion[]>(DEFAULT_TIEBREAKING_CRITERIA);
+  tiebreaking_criteria = this._tiebreaking_criteria.asObservable();
+
+  setTiebreakingCriteria(c: TiebreakingCriterion[]){
+    this._tiebreaking_criteria.next(c);
+    this.storageServ.setObject(this.stTiebreakingCriteria, c);
+  }
+
+  private _tiebreaking_criteria_UI = new BehaviorSubject<TiebreakingCriterion[]>(DEFAULT_TIEBREAKING_CRITERIA);
+  tiebreaking_criteria_UI = this._tiebreaking_criteria_UI.asObservable();
+
+  setTiebreakingCriteriaUI(c: TiebreakingCriterion[]){
+    this._tiebreaking_criteria_UI.next(c);
   }
 }

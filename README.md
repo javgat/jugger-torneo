@@ -1,12 +1,18 @@
 # jugger-torneo
 
-![Version 1.2.0](https://img.shields.io/badge/version-1.2.0-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+![Version 1.3.0](https://img.shields.io/badge/version-1.3.0-informational) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 Swiss-system tournament ionic app tailored for Jugger players.
 
 Using Ionic 5 with Angular. Built for Android.
 
 ## New features
+
+### Version 1.3
+
+- Let the user choose at the begining if they allow repetition of matches.
+- Allow selection of the tie-breaking criteria used and the priority among them.
+- Added Buchholz system as another tie-breaking criterion.
 
 ### Version 1.2
 
